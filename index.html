@@ -117,6 +117,7 @@
       display: flex; flex-direction: column;
       opacity: 0; transform: translateY(40px);
       transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+      cursor: pointer;
     }
     .card.visible {
       opacity: 1; transform: translateY(0);
@@ -198,6 +199,7 @@
       opacity: 0;
       transform: translateY(calc(-50% + 40px));
       transition: opacity 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1), box-shadow 0.35s ease, border-color 0.35s ease;
+      cursor: pointer;
     }
     .midder-right.visible {
       opacity: 1;
@@ -519,6 +521,7 @@
     e.preventDefault();
     document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
   });
+  
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
@@ -527,6 +530,7 @@
   document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
   const midderRight = document.querySelector('.midder-right');
   if (midderRight) observer.observe(midderRight);
+  
   const cardObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -539,14 +543,19 @@
   }, { threshold: 0.15 });
   document.querySelectorAll('.cards-grid').forEach(g => cardObserver.observe(g));
 
+  // حذف touchstart و استفاده از click فقط برای انیمیشن کلیک واقعی
   document.querySelectorAll('.card').forEach(card => {
-    card.addEventListener('touchstart', () => card.classList.add('touch-active'), { passive: true });
-    card.addEventListener('touchend', () => setTimeout(() => card.classList.remove('touch-active'), 300), { passive: true });
+    card.addEventListener('click', () => {
+      card.classList.add('touch-active');
+      setTimeout(() => card.classList.remove('touch-active'), 300);
+    });
   });
 
   if (midderRight) {
-    midderRight.addEventListener('touchstart', () => midderRight.classList.add('touch-active'), { passive: true });
-    midderRight.addEventListener('touchend', () => setTimeout(() => midderRight.classList.remove('touch-active'), 300), { passive: true });
+    midderRight.addEventListener('click', () => {
+      midderRight.classList.add('touch-active');
+      setTimeout(() => midderRight.classList.remove('touch-active'), 300);
+    });
   }
 
   if ('serviceWorker' in navigator) { navigator.serviceWorker.register('sw.js').catch(() => {}); }
