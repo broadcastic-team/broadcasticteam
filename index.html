@@ -72,14 +72,14 @@
     }
     .hero-title-en .team { font-weight: 300; }
     .hero-title-fa {
-      font-size: clamp(1rem, 2.2vw, 1.5rem);
+      font-size: clamp(1.3rem, 2.8vw, 2rem);
       font-weight: 800; color: var(--red); letter-spacing: var(--ls);
       text-shadow: 0 2px 16px rgba(0,0,0,0.95), 0 0 40px rgba(0,0,0,0.7);
       opacity: 0; transform: translateY(30px);
       animation: fadeUp 0.9s ease forwards 0.55s;
     }
     .hero-subtitle {
-      font-size: clamp(0.85rem, 1.1vw, 1rem);
+      font-size: clamp(0.82rem, 1.25vw, 1.08rem);
       font-weight: 300; color: #fff; max-width: 600px; line-height: 1.75; letter-spacing: var(--ls);
       text-shadow: 0 2px 14px rgba(0,0,0,0.95), 0 0 35px rgba(0,0,0,0.65);
       opacity: 0; transform: translateY(30px);
@@ -89,7 +89,7 @@
       display: inline-flex; align-items: center; gap: 10px;
       background: var(--red); color: #fff;
       font-family: 'Vazirmatn', sans-serif;
-      font-size: 1rem;
+      font-size: clamp(0.85rem, 1.25vw, 1.12rem);
       font-weight: 500; letter-spacing: var(--ls);
       padding: 14px 36px; border: none; cursor: pointer;
       border-radius: 4px; margin-top: 8px; text-decoration: none;
@@ -123,7 +123,7 @@
       opacity: 1; transform: translateY(0);
       transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.35s ease, border-color 0.35s ease;
     }
-    .card:hover {
+    .card:hover, .card.touch-active {
       transform: translateY(-8px) scale(1.02);
       box-shadow: 0 20px 50px rgba(169,24,28,0.15), 0 0 0 1px rgba(169,24,28,0.3);
       border-color: rgba(169,24,28,0.5);
@@ -134,6 +134,7 @@
       border-bottom: 1px solid var(--stroke);
       border-radius: 10px 10px 0 0;
     }
+    /* دایره کامل — نصف روی عکس نصف روی بدنه */
     .card-icon-wrap {
       position: absolute; bottom: -28px; left: 50%; transform: translateX(-50%);
       width: 56px; height: 56px; border-radius: 50%;
@@ -146,9 +147,10 @@
     .card-title { font-size: 1.125rem; font-weight: 800; color: #fff; letter-spacing: var(--ls); }
     .card-desc { font-size: 0.875rem; font-weight: 200; color: #d6d6d6; line-height: 1.8; letter-spacing: var(--ls); }
 
-    /* ── MIDDER TITLE ── */
+    /* ── MIDDER TITLE ── حذف شد - داخل عکس */
     .midder-title-section { display: none; }
 
+    /* عنوان داخل عکس — بالا وسط */
     .midder-top-title {
       position: absolute;
       top: 28px; left: 0; right: 0;
@@ -161,7 +163,7 @@
       text-shadow: 0 2px 14px rgba(0,0,0,0.95), 0 0 35px rgba(0,0,0,0.7);
     }
 
-    /* ── MIDDER ── */
+    /* ── MIDDER — img tag, محتوا روی عکس ── */
     .midder-section {
       position: relative; width: 100%;
       border-top: 1px solid var(--stroke);
@@ -171,12 +173,15 @@
       width: 100%; display: block;
       object-fit: cover; object-position: center;
     }
+    /* روی دسکتاپ: عکس کامل */
     @media (min-width: 769px) {
       .midder-img { height: auto; max-height: none; }
     }
+    /* روی موبایل: مثل هدر کراپ میشه */
     @media (max-width: 768px) {
       .midder-img { height: 600px; object-fit: cover; }
     }
+    /* کالر بار — کوچکتر، نزدیک‌تر به پایین */
     .colorbar {
       position: absolute;
       left: 0; right: 0;
@@ -206,20 +211,21 @@
       right: 4%;
       top: 50%;
       transform: translateY(-50%);
-      width: clamp(280px, 32%, 420px);
+      width: clamp(240px, 30%, 420px);
       transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
     }
-    .midder-right:hover {
+    .midder-right:hover, .midder-right.touch-active {
       transform: translateY(calc(-50% - 6px)) scale(1.02);
       box-shadow: 0 20px 50px rgba(169,24,28,0.15), 0 0 0 1px rgba(169,24,28,0.3);
       border-color: rgba(169,24,28,0.5);
     }
+    /* آیکون سمت راست، متن سمت چپش — direction: rtl طبیعی */
     .midder-item {
       display: flex; align-items: flex-start;
       gap: 12px; direction: rtl;
     }
     .midder-item-icon { flex-shrink: 0; margin-top: 3px; }
-    .midder-item-icon svg { width: 22px; height: 22px; stroke: var(--red); }
+    .midder-item-icon svg { width: 26px; height: 26px; stroke: var(--red); }
     .midder-item-text { flex: 1; }
     .midder-item-title {
       font-size: 1rem;
@@ -254,6 +260,7 @@
     .fb-title { font-size: 1.3rem; font-weight: 800; color: #fff; letter-spacing: var(--ls); white-space: nowrap; }
     .about-text { font-size: 0.95rem; font-weight: 500; color: var(--text-muted); line-height: 2; letter-spacing: var(--ls); text-align: center; max-width: 900px; margin: 0 auto; }
 
+    /* contact افقی */
     .contact-items { display: flex; justify-content: center; align-items: center; gap: 50px; flex-wrap: wrap; }
     .contact-item {
       display: flex; align-items: center; gap: 10px;
@@ -270,8 +277,8 @@
     .footer-bar { display: flex; width: 100%; }
     .footer-bar-left { flex: 1; background: #000; padding: 14px 40px; display: flex; align-items: center; }
     .footer-bar-right { flex: 1; background: #fff; padding: 14px 40px; display: flex; align-items: center; justify-content: flex-end; }
-    .footer-bar-left span { font-size: 0.8rem; font-weight: 300; color: #fff; font-family: 'Vazirmatn', sans-serif; letter-spacing: var(--ls); }
-    .footer-bar-right span { font-size: 0.8rem; font-weight: 300; color: #000; font-family: 'Vazirmatn', sans-serif; letter-spacing: 0.02em; direction: ltr; }
+    .footer-bar-left span { font-size: clamp(0.6rem, 0.78vw, 0.75rem); font-weight: 300; color: #fff; font-family: 'Vazirmatn', sans-serif; letter-spacing: var(--ls); }
+    .footer-bar-right span { font-size: clamp(0.6rem, 0.78vw, 0.75rem); font-weight: 300; color: #000; font-family: 'Vazirmatn', sans-serif; letter-spacing: 0.02em; direction: ltr; }
 
     /* ── ANIMATIONS ── */
     @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
@@ -301,8 +308,11 @@
         gap: 12px;
         padding: 14px 12px;
       }
-      .midder-right:hover {
+      .midder-right:hover,
+      .midder-right:active {
         transform: translateX(-50%) translateY(calc(-50% - 4px)) scale(1.01);
+        box-shadow: 0 20px 50px rgba(169,24,28,0.15), 0 0 0 1px rgba(169,24,28,0.3);
+        border-color: rgba(169,24,28,0.5);
       }
       .midder-item-title { font-size: 1rem; }
       .midder-item-desc { font-size: 0.85rem; }
@@ -534,6 +544,20 @@
     });
   }, { threshold: 0.08 });
   document.querySelectorAll('.cards-grid').forEach(g => cardObserver.observe(g));
+
+  // Touch support for card hover animations
+  document.querySelectorAll('.card').forEach(card => {
+    card.addEventListener('touchstart', () => card.classList.add('touch-active'), { passive: true });
+    card.addEventListener('touchend', () => setTimeout(() => card.classList.remove('touch-active'), 300), { passive: true });
+  });
+
+  // Touch support for midder card
+  const midderRight = document.querySelector('.midder-right');
+  if (midderRight) {
+    midderRight.addEventListener('touchstart', () => midderRight.classList.add('touch-active'), { passive: true });
+    midderRight.addEventListener('touchend', () => setTimeout(() => midderRight.classList.remove('touch-active'), 300), { passive: true });
+  }
+
   if ('serviceWorker' in navigator) { navigator.serviceWorker.register('sw.js').catch(() => {}); }
 </script>
 </body>
