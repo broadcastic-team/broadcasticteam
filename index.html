@@ -526,7 +526,7 @@
     entries.forEach(entry => {
       if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
     });
-  }, { threshold: 0.15 });
+  }, { threshold: 0.25 });
   document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
   const midderRight = document.querySelector('.midder-right');
   if (midderRight) observer.observe(midderRight);
@@ -540,10 +540,9 @@
         cardObserver.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.15 });
+  }, { threshold: 0.25 });
   document.querySelectorAll('.cards-grid').forEach(g => cardObserver.observe(g));
 
-  // حذف touchstart و استفاده از click فقط برای انیمیشن کلیک واقعی
   document.querySelectorAll('.card').forEach(card => {
     card.addEventListener('click', () => {
       card.classList.add('touch-active');
