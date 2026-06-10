@@ -68,7 +68,6 @@
       font-weight: 900; letter-spacing: var(--ls); line-height: 1;
       background: linear-gradient(135deg, #b0b0b0 0%, #ffffff 35%, #c8c8c8 60%, #909090 100%);
       -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-      filter: drop-shadow(0 0 10px rgba(0,0,0,0.9)) drop-shadow(0 0 30px rgba(0,0,0,0.7));
       opacity: 0; transform: translateY(30px);
       animation: fadeUp 0.9s ease forwards 0.3s;
     }
@@ -76,14 +75,12 @@
     .hero-title-fa {
       font-size: clamp(1.1rem, 2.35vw, 1.65rem);
       font-weight: 800; color: var(--red); letter-spacing: var(--ls);
-      text-shadow: 0 2px 16px rgba(0,0,0,0.95), 0 0 40px rgba(0,0,0,0.7);
       opacity: 0; transform: translateY(30px);
       animation: fadeUp 0.9s ease forwards 0.55s;
     }
     .hero-subtitle {
       font-size: clamp(0.85rem, 1.1vw, 1rem);
       font-weight: 300; color: #fff; max-width: 600px; line-height: 1.75; letter-spacing: var(--ls);
-      text-shadow: 0 2px 14px rgba(0,0,0,0.95), 0 0 35px rgba(0,0,0,0.65);
       opacity: 0; transform: translateY(30px);
       animation: fadeUp 0.9s ease forwards 0.75s;
     }
@@ -197,9 +194,7 @@
       position: absolute;
       right: 4%;
       top: 50%;
-      transform: translateY(-50%);
       width: clamp(240px, 30%, 420px);
-      transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
       opacity: 0;
       transform: translateY(calc(-50% + 40px));
       transition: opacity 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1), box-shadow 0.35s ease, border-color 0.35s ease;
@@ -296,7 +291,7 @@
       .hero-title-en { font-size: clamp(2.2rem, 7vw, 5.2rem); }
       .hero-title-fa { font-size: clamp(1.1rem, 2.35vw, 1.65rem); }
       .hero-subtitle { font-size: clamp(0.75rem, 1vw, 0.9rem); max-width: 100%; }
-      .midder-img { height: 600px; object-fit: cover; filter: blur(2px); transform: scale(1.02); }
+      .midder-img { height: 600px; object-fit: cover; filter: blur(1px); transform: scale(1.02); }
       .midder-right {
         right: auto;
         left: 50%;
@@ -528,7 +523,7 @@
     entries.forEach(entry => {
       if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
     });
-  }, { threshold: 0.08 });
+  }, { threshold: 0.15 });
   document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
   const midderRight = document.querySelector('.midder-right');
   if (midderRight) observer.observe(midderRight);
@@ -541,7 +536,7 @@
         cardObserver.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.08 });
+  }, { threshold: 0.15 });
   document.querySelectorAll('.cards-grid').forEach(g => cardObserver.observe(g));
 
   document.querySelectorAll('.card').forEach(card => {
