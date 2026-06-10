@@ -58,8 +58,10 @@
     .hero-content {
       position: relative; z-index: 2;
       display: flex; flex-direction: column;
-      align-items: flex-start; justify-content: center;
+      align-items: center;
+      justify-content: center;
       height: 100%; padding: 0 8%; gap: 16px;
+      text-align: center;
     }
     .hero-title-en {
       font-size: clamp(2.4rem, 5.5vw, 5.2rem);
@@ -295,7 +297,13 @@
       .hero-logo { width: 46px; height: 46px; right: 20px; top: 16px; }
       .stl { width: 60px; }
       .section-title { font-size: 1.2rem; }
+      .hero-title-en { 
+        font-size: clamp(2.2rem, 7vw, 5.2rem);
+      }
       .hero-title-en .team { white-space: nowrap; }
+      .hero-title-fa {
+        font-size: clamp(1.1rem, 2.35vw, 1.65rem);
+      }
       .hero-subtitle { max-width: 100%; }
       .midder-img { filter: blur(2px); transform: scale(1.02); }
       .midder-right {
@@ -338,7 +346,13 @@
       .about-text { font-size: 0.95rem; }
       .midder-item-title { font-size: 1rem; }
       .midder-item-desc { font-size: 0.85rem; }
+      .hero-title-en { 
+        font-size: clamp(2rem, 6.5vw, 5.2rem);
+      }
       .hero-title-en .team { white-space: nowrap; }
+      .hero-title-fa {
+        font-size: clamp(1.1rem, 2.35vw, 1.65rem);
+      }
     }
     @media (display-mode: standalone) {
       .hero-content {
@@ -553,13 +567,11 @@
   }, { threshold: 0.08 });
   document.querySelectorAll('.cards-grid').forEach(g => cardObserver.observe(g));
 
-  // Touch support for card hover animations
   document.querySelectorAll('.card').forEach(card => {
     card.addEventListener('touchstart', () => card.classList.add('touch-active'), { passive: true });
     card.addEventListener('touchend', () => setTimeout(() => card.classList.remove('touch-active'), 300), { passive: true });
   });
 
-  // Touch support for midder card
   const midderRight = document.querySelector('.midder-right');
   if (midderRight) {
     midderRight.addEventListener('touchstart', () => midderRight.classList.add('touch-active'), { passive: true });
