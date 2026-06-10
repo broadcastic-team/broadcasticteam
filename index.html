@@ -526,7 +526,7 @@
     entries.forEach(entry => {
       if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
     });
-  }, { threshold: 0.25 });
+  }, { threshold: 0.20, rootMargin: "-50px 0px 0px 0px" });
   document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
   const midderRight = document.querySelector('.midder-right');
   if (midderRight) observer.observe(midderRight);
@@ -540,7 +540,7 @@
         cardObserver.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.25 });
+  }, { threshold: 0.20, rootMargin: "-50px 0px 0px 0px" });
   document.querySelectorAll('.cards-grid').forEach(g => cardObserver.observe(g));
 
   document.querySelectorAll('.card').forEach(card => {
