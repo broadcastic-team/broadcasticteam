@@ -254,7 +254,7 @@
     .fb-line { height: 2px; flex: 1; max-width: 120px; background: linear-gradient(to right, transparent, var(--red)); }
     .fb-line.r { background: linear-gradient(to left, transparent, var(--red)); }
     .fb-title { font-size: 1.3rem; font-weight: 800; color: #fff; letter-spacing: var(--ls); white-space: nowrap; }
-    .about-text { font-size: 0.95rem; font-weight: 500; color: var(--text-muted); line-height: 2; letter-spacing: var(--ls); text-align: center; max-width: 900px; margin: 0 auto; }
+    .about-text { font-size: 0.9rem; font-weight: 500; color: var(--text-muted); line-height: 2; letter-spacing: var(--ls); text-align: center; max-width: 900px; margin: 0 auto; }
 
     .contact-items { display: flex; justify-content: center; align-items: center; gap: 50px; flex-wrap: wrap; }
     .contact-item {
@@ -304,6 +304,9 @@
       .hero-title-fa {
         font-size: clamp(1.1rem, 2.35vw, 1.65rem);
       }
+      .hero-subtitle {
+        font-size: clamp(0.75rem, 1vw, 0.9rem);
+      }
       .hero-subtitle { max-width: 100%; }
       .midder-img { filter: blur(2px); transform: scale(1.02); }
       .midder-right {
@@ -328,7 +331,7 @@
       .exp-item { flex: 0 0 40%; }
       .exp-label { font-size: 0.9rem; }
       .about-box, .contact-box-wrap { padding: 20px 16px; }
-      .about-text { font-size: 0.9rem; }
+      .about-text { font-size: 0.85rem; }
       .contact-items { flex-direction: column; align-items: center; gap: 18px; }
       .contact-item span { font-size: 0.95rem; }
       .card-title { font-size: 1.125rem; }
@@ -343,7 +346,7 @@
       .cards-grid { gap: 16px; }
       .midder-right { width: 88vw; }
       .card-desc { font-size: 0.9rem; }
-      .about-text { font-size: 0.95rem; }
+      .about-text { font-size: 0.85rem; }
       .midder-item-title { font-size: 1rem; }
       .midder-item-desc { font-size: 0.85rem; }
       .hero-title-en { 
@@ -352,6 +355,9 @@
       .hero-title-en .team { white-space: nowrap; }
       .hero-title-fa {
         font-size: clamp(1.1rem, 2.35vw, 1.65rem);
+      }
+      .hero-subtitle {
+        font-size: clamp(0.72rem, 0.95vw, 0.85rem);
       }
     }
     @media (display-mode: standalone) {
