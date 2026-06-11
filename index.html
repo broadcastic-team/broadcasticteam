@@ -30,15 +30,7 @@
       background: var(--bg); color: #fff;
       direction: rtl; 
       overflow-x: hidden;
-      max-width: 100%;
       letter-spacing: var(--ls);
-    }
-    img, svg, .midder-right, .hero-logo, .card, .footer-bar, .footer-bottom, .hero, .midder-section, .footer-section {
-      max-width: 100%;
-      overflow-x: hidden;
-    }
-    .hero, .midder-section, .footer-section {
-      overflow-x: hidden;
     }
 
     /* ── HERO ── */
@@ -164,6 +156,7 @@
       position: relative; width: 100%;
       border-top: 1px solid var(--stroke);
       border-bottom: 1px solid var(--stroke);
+      overflow: hidden;
     }
     .midder-img {
       width: 100%; display: block;
@@ -213,7 +206,6 @@
       transform: translateY(calc(-50% + 40px));
       transition: opacity 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1), box-shadow 0.35s ease, border-color 0.35s ease;
       cursor: pointer;
-      box-sizing: border-box;
     }
     .midder-right.visible {
       opacity: 1;
@@ -244,7 +236,7 @@
 
     /* ── EXPERIENCES ── */
     .experiences { padding: 40px 5% var(--gap); background: var(--bg); }
-    .exp-box { border: 3px solid var(--stroke); border-radius: 10px; max-width: 1784px; margin: 0 auto; padding: 36px 60px 40px; }
+    .exp-box { border: 3px solid var(--stroke); border-radius: 10px; max-width: 1784px; width: 100%; margin: 0 auto; padding: 36px 60px 40px; box-sizing: border-box; }
     .exp-items { display: flex; justify-content: space-around; align-items: flex-start; gap: 20px; }
     .exp-item { display: flex; flex-direction: column; align-items: center; gap: 14px; text-align: center; flex: 1; }
     .exp-icon-wrap { width: 52px; height: 52px; border-radius: 8px; background: var(--red); display: flex; align-items: center; justify-content: center; }
@@ -320,8 +312,8 @@
       .midder-right {
         right: auto;
         left: 50%;
-        width: 86vw;
-        max-width: 340px;
+        width: min(86vw, 340px);
+        max-width: calc(100vw - 32px);
         gap: 12px;
         padding: 14px 12px;
         transition: opacity 0.5s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 0.5s cubic-bezier(0.2, 0.9, 0.4, 1.1), box-shadow 0.35s ease, border-color 0.35s ease;
