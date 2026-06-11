@@ -160,6 +160,7 @@
     }
     .midder-img {
       width: 100%; display: block;
+      aspect-ratio: 1920 / 1024;
       object-fit: cover; object-position: center;
     }
     .midder-top-title {
@@ -201,7 +202,7 @@
       position: absolute;
       right: 4%;
       top: 50%;
-      width: clamp(240px, 30%, 420px);
+      width: clamp(240px, 44%, 420px);
       opacity: 0;
       transform: translateY(calc(-50% + 40px));
       transition: opacity 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1), box-shadow 0.35s ease, border-color 0.35s ease;
@@ -293,10 +294,20 @@
     @media (max-width: 1200px) {
       .cards-grid { grid-template-columns: repeat(2, 1fr); }
       .contact-items { gap: 28px; }
-      .midder-right { width: clamp(260px, 35%, 380px); }
-    }
-    @media (min-width: 769px) {
-      .midder-img { height: auto; max-height: none; }
+      .midder-img { filter: blur(1px); transform: scale(1.02); }
+      .midder-right {
+        right: auto;
+        left: 50%;
+        width: max-content;
+        max-width: 90%;
+        transform: translateY(calc(-50% + 40px)) translateX(-50%);
+      }
+      .midder-right.visible {
+        transform: translateX(-50%) translateY(-50%);
+      }
+      .midder-right:hover, .midder-right.touch-active {
+        transform: translateX(-50%) translateY(calc(-50% - 6px)) scale(1.02);
+      }
     }
     @media (max-width: 768px) {
       :root { --gap: 48px; }
@@ -338,7 +349,6 @@
     @media (max-width: 480px) {
       .exp-item { flex: 0 0 100%; }
       .cards-grid { gap: 16px; }
-      .midder-right { width: 88vw; }
       .card-desc { font-size: 0.9rem; }
       .about-text { font-size: 0.85rem; }
       .hero-title-en { font-size: clamp(2rem, 6.5vw, 5.2rem); }
