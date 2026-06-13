@@ -114,7 +114,7 @@
     .section-title { font-size: 1.6rem; font-weight: 800; color: #fff; letter-spacing: var(--ls); white-space: nowrap; }
 
     .services { padding: 50px 5% 30px; background: var(--bg); }
-    .cards-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; max-width: 1600px; margin: 0 auto; }
+    .cards-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; max-width: 1600px; margin: 0 auto; grid-auto-rows: 1fr; }
     .card {
       border: 1px solid var(--stroke); border-radius: 10px;
       overflow: visible; background: #0f0f0f;
@@ -148,7 +148,7 @@
       z-index: 10; box-shadow: 0 2px 16px rgba(0,0,0,0.6);
     }
     .card-icon-wrap svg { width: 28px; height: 28px; stroke: #fff; }
-    .card-body { padding: 44px 18px 24px; display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; }
+    .card-body { padding: 44px 14px 18px; display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; flex: 1; }
     .card-title { font-size: 1.125rem; font-weight: 800; color: #fff; letter-spacing: var(--ls); }
     .card-desc { font-size: 0.875rem; font-weight: 200; color: #d6d6d6; line-height: 1.8; letter-spacing: var(--ls); }
 
@@ -339,51 +339,53 @@
       .cards-grid { grid-template-columns: repeat(2, 1fr); }
       .contact-items { gap: 28px; }
     }
+    
     @media (max-width: 768px) {
       :root {
         --gap: 48px;
         --midder-gap: 34px;
       }
+      
       .cards-grid {
-        display: block;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 20px;
         width: 100%;
       }
       .card {
         width: 95%;
-        margin: 0 auto 28px auto;
+        margin: 0 auto;
       }
+      
       .midder-cards-grid {
-        display: block;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 16px;
         width: 100%;
       }
       .midder-card {
         width: 100%;
-        margin-bottom: 22px;
-        padding: 12px;
-        gap: 12px;
+        margin: 0;
+        padding: 10px;
+        gap: 10px;
       }
+      
       .midder-card-icon svg { width: 30px; height: 30px; }
       .hero-content { padding: 0 5%; }
       .hero-logo { width: 46px; height: 46px; right: 20px; top: 16px; }
       .stl { width: 60px; }
-      .section-title { font-size: 1.2rem; }
+      .section-title { font-size: 1.2rem; white-space: normal; text-align: center; }
       .hero-title-en { font-size: clamp(2.2rem, 7vw, 5.2rem); }
       .hero-title-fa { font-size: clamp(1.1rem, 2.35vw, 1.65rem); }
       .hero-subtitle { font-size: clamp(0.75rem, 1vw, 0.9rem); max-width: 100%; }
-      .midder-bottom-img img {
-        aspect-ratio: auto;
-        height: auto;
-      }
+      .midder-bottom-img img { aspect-ratio: auto; height: auto; }
       .exp-box { padding: 24px 16px; }
       .exp-items {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         gap: 16px;
       }
-      .exp-item {
-        flex: unset;
-        gap: 8px;
-      }
+      .exp-item { flex: unset; gap: 8px; }
       .exp-label {
         font-size: 0.75rem;
         white-space: nowrap;
@@ -408,6 +410,7 @@
       }
       .fb-title {
         font-size: 1rem;
+        white-space: normal;
       }
       .about-text { 
         font-size: 0.85rem; 
@@ -419,10 +422,16 @@
       .footer-bar-left, .footer-bar-right { padding: 12px 0; }
       .footer-logo-img { width: 50%; max-width: none; }
     }
+    
+    @media (min-width: 769px) {
+      .midder-card {
+        padding: 13.5px;
+        gap: 13.5px;
+      }
+    }
+    
     @media (max-width: 480px) {
       .exp-item { flex: 0 0 100%; }
-      .card { margin-bottom: 20px; }
-      .midder-card { margin-bottom: 16px; padding: 10px; gap: 10px; }
       .midder-card-icon svg { width: 28px; height: 28px; }
       .midder-card-title { font-size: 0.95rem; }
       .midder-card-desc { font-size: 0.75rem; }
@@ -431,6 +440,7 @@
       .hero-title-en { font-size: clamp(2rem, 6.5vw, 5.2rem); }
       .hero-subtitle { font-size: clamp(0.72rem, 0.95vw, 0.85rem); }
     }
+    
     @media (display-mode: standalone) {
       .hero-content { align-items: center; text-align: center; }
       .hero-subtitle { max-width: 100%; }
@@ -490,7 +500,7 @@
       </div>
       <div class="card-body">
         <h3 class="card-title">مهندسی فنی و انتقال سیگنال</h3>
-        <p class="card-desc">طراحی و مدیریت مسیرهای انتقال تصویر و صدا و زیرساخت فنی بر اساس نیاز پروژه و استانداردهای حرفه‌ای</p>
+        <p class="card-desc">طراحی و مدیریت مسیرهای انتقال تصویر، صدا و زیرساخت فنی بر اساس نیاز پروژه</p>
       </div>
     </div>
     <div class="card">
