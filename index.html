@@ -671,9 +671,11 @@
   
   revealElements.forEach(el => observer.observe(el));
   
-  // افکت کارت‌ها (فقط در دستگاه‌های لمسی، فقط با کلیک)
+  // حل مشکل تاچ در موبایل (فقط تپ کوتاه، بدون لانگ تاچ و اسکرول)
   if ('ontouchstart' in window) {
     const cards = document.querySelectorAll('.card, .midder-card');
+    let startY = 0;
+    let didScroll = false;
     
     const addEffect = (el) => {
       el.classList.add('touch-active');
@@ -687,12 +689,23 @@
     };
     
     cards.forEach(card => {
-      card.addEventListener('click', () => {
-        addEffect(card);
+      card.addEventListener('touchstart', (e) => {
+        startY = e.touches[0].clientY;
+        didScroll = false;
+      });
+      
+      card.addEventListener('touchmove', () => {
+        didScroll = true;
+      });
+      
+      card.addEventListener('touchend', (e) => {
+        if (!didScroll && e.target === card) {
+          addEffect(card);
+        }
       });
     });
     
-    document.addEventListener('click', (e) => {
+    document.addEventListener('touchstart', (e) => {
       if (!e.target.closest('.card, .midder-card')) {
         removeAllEffects();
       }
