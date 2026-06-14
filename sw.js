@@ -4,19 +4,24 @@ const ASSETS = [
   '/index.html',
   '/manifest.json',
   '/favicon.png',
-  '/logo.png',
   '/header.jpg',
   '/card1.png',
   '/card2.png',
   '/card3.png',
   '/card4.png',
   '/midder.jpg',
-  '/footer_logo.jpg'
+  '/footer.jpg'
 ];
 
 self.addEventListener('install', event => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => cache.addAll(ASSETS))
+    caches.open(CACHE_NAME).then(async cache => {
+      try {
+        await cache.addAll(ASSETS);
+      } catch (err) {
+        console.error('Cache addAll failed:', err);
+      }
+    })
   );
   self.skipWaiting();
 });

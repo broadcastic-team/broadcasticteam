@@ -9,6 +9,7 @@
   <link rel="manifest" href="manifest.json" />
   <link rel="apple-touch-icon" href="favicon.png" />
   <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="preload" href="header.jpg" as="image" fetchpriority="high" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@200;300;400;500;700;800;900&display=swap" rel="stylesheet" />
@@ -32,14 +33,15 @@
       direction: rtl; 
       overflow-x: hidden;
       letter-spacing: var(--ls);
+      touch-action: manipulation;
     }
 
     body * { border-width: 1px !important; }
 
     .hero {
-      position: relative; width: 100%;
+      position: relative;
       height: 100vh;
-      height: 100dvh;
+      height: 100svh;
       min-height: 600px;
       overflow: hidden;
     }
@@ -47,10 +49,12 @@
       position: absolute; inset: 0;
       width: 100%; height: 100%;
       object-fit: cover; object-position: center;
+      z-index: 0;
     }
     .hero-overlay {
       position: absolute; inset: 0;
       background: linear-gradient(to left, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.7) 100%);
+      z-index: 1;
     }
     .hero-logo {
       position: absolute; top: 28px; right: 40px;
@@ -637,11 +641,16 @@
 </section>
 
 <script>
-  lucide.createIcons();
-  document.getElementById('contactBtn').addEventListener('click', function(e){
-    e.preventDefault();
-    document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
-  });
+(function() {
+  if (typeof lucide !== 'undefined') lucide.createIcons();
+  
+  const contactBtn = document.getElementById('contactBtn');
+  if (contactBtn) {
+    contactBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+    });
+  }
   
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -652,24 +661,42 @@
     });
   }, { threshold: 0.15 });
   
-  document.querySelectorAll('.card').forEach(el => observer.observe(el));
-  document.querySelectorAll('.midder-card').forEach(el => observer.observe(el));
-  document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
+  const revealElements = [
+    ...document.querySelectorAll('.card'),
+    ...document.querySelectorAll('.midder-card'),
+    ...document.querySelectorAll('.scroll-reveal'),
+    document.querySelector('.midder-bottom-img'),
+    document.querySelector('.footer-bottom')
+  ].filter(Boolean);
   
-  const midderImg = document.querySelector('.midder-bottom-img');
-  if (midderImg) observer.observe(midderImg);
+  revealElements.forEach(el => observer.observe(el));
   
-  const footerBottom = document.querySelector('.footer-bottom');
-  if (footerBottom) observer.observe(footerBottom);
-
-  document.querySelectorAll('.card, .midder-card').forEach(card => {
-    card.addEventListener('click', () => {
-      card.classList.add('touch-active');
-      setTimeout(() => card.classList.remove('touch-active'), 300);
+  // افکت تاچ روی کارت‌ها (فقط در موبایل‌های لمسی)
+  if ('ontouchstart' in window) {
+    const interactiveCards = document.querySelectorAll('.card, .midder-card');
+    interactiveCards.forEach(card => {
+      card.addEventListener('touchstart', () => {
+        card.classList.add('touch-active');
+        setTimeout(() => card.classList.remove('touch-active'), 300);
+      });
     });
-  });
-
-  if ('serviceWorker' in navigator) { navigator.serviceWorker.register('sw.js').catch(() => {}); }
+    
+    // حذف افکت با تاچ در بیرون از کارت
+    document.addEventListener('touchstart', (e) => {
+      if (!e.target.closest('.card, .midder-card')) {
+        document.querySelectorAll('.card.touch-active, .midder-card.touch-active').forEach(el => {
+          el.classList.remove('touch-active');
+        });
+      }
+    });
+  }
+  
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js').catch(err => {
+      console.warn('SW registration failed:', err);
+    });
+  }
+})();
 </script>
 </body>
 </html>
