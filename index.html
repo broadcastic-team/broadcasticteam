@@ -671,11 +671,9 @@
   
   revealElements.forEach(el => observer.observe(el));
   
-  // حل مشکل تاچ در سافاری موبایل (فقط تپ کوتاه، بدون اسکرول و لانگ تاچ)
+  // افکت کارت‌ها (فقط در دستگاه‌های لمسی، فقط با کلیک)
   if ('ontouchstart' in window) {
     const cards = document.querySelectorAll('.card, .midder-card');
-    let startX, startY, moved = false;
-    let longTouch = false, touchTimer;
     
     const addEffect = (el) => {
       el.classList.add('touch-active');
@@ -689,32 +687,12 @@
     };
     
     cards.forEach(card => {
-      card.addEventListener('touchstart', (e) => {
-        startX = e.touches[0].clientX;
-        startY = e.touches[0].clientY;
-        moved = false;
-        longTouch = false;
-        touchTimer = setTimeout(() => { longTouch = true; }, 300);
-      });
-      
-      card.addEventListener('touchmove', (e) => {
-        const deltaX = Math.abs(e.touches[0].clientX - startX);
-        const deltaY = Math.abs(e.touches[0].clientY - startY);
-        if (deltaX > 10 || deltaY > 10) {
-          moved = true;
-          clearTimeout(touchTimer);
-        }
-      });
-      
-      card.addEventListener('touchend', () => {
-        clearTimeout(touchTimer);
-        if (!moved && !longTouch) {
-          addEffect(card);
-        }
+      card.addEventListener('click', () => {
+        addEffect(card);
       });
     });
     
-    document.addEventListener('touchstart', (e) => {
+    document.addEventListener('click', (e) => {
       if (!e.target.closest('.card, .midder-card')) {
         removeAllEffects();
       }
