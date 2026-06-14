@@ -671,27 +671,54 @@
   
   revealElements.forEach(el => observer.observe(el));
   
-  // افکت کارت‌ها (فقط در دستگاه‌های لمسی، با تپ کوتاه)
+  // حل مشکل تاچ در سافاری موبایل (فقط تپ کوتاه، بدون اسکرول و لانگ تاچ)
   if ('ontouchstart' in window) {
     const cards = document.querySelectorAll('.card, .midder-card');
+    let startX, startY, moved = false;
+    let longTouch = false, touchTimer;
     
-    const addEffect = (e) => {
-      if (e.detail === 0) return;
-      const card = e.currentTarget;
-      card.classList.add('touch-active');
-      setTimeout(() => card.classList.remove('touch-active'), 300);
+    const addEffect = (el) => {
+      el.classList.add('touch-active');
+      setTimeout(() => el.classList.remove('touch-active'), 300);
     };
     
-    const removeEffect = (e) => {
+    const removeAllEffects = () => {
+      document.querySelectorAll('.card.touch-active, .midder-card.touch-active').forEach(el => {
+        el.classList.remove('touch-active');
+      });
+    };
+    
+    cards.forEach(card => {
+      card.addEventListener('touchstart', (e) => {
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+        moved = false;
+        longTouch = false;
+        touchTimer = setTimeout(() => { longTouch = true; }, 300);
+      });
+      
+      card.addEventListener('touchmove', (e) => {
+        const deltaX = Math.abs(e.touches[0].clientX - startX);
+        const deltaY = Math.abs(e.touches[0].clientY - startY);
+        if (deltaX > 10 || deltaY > 10) {
+          moved = true;
+          clearTimeout(touchTimer);
+        }
+      });
+      
+      card.addEventListener('touchend', () => {
+        clearTimeout(touchTimer);
+        if (!moved && !longTouch) {
+          addEffect(card);
+        }
+      });
+    });
+    
+    document.addEventListener('touchstart', (e) => {
       if (!e.target.closest('.card, .midder-card')) {
-        document.querySelectorAll('.card.touch-active, .midder-card.touch-active').forEach(el => {
-          el.classList.remove('touch-active');
-        });
+        removeAllEffects();
       }
-    };
-    
-    cards.forEach(card => card.addEventListener('click', addEffect));
-    document.addEventListener('click', removeEffect);
+    });
   }
   
   if ('serviceWorker' in navigator) {
