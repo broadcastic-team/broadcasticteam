@@ -671,24 +671,27 @@
   
   revealElements.forEach(el => observer.observe(el));
   
-  // افکت تاچ روی کارت‌ها (فقط در موبایل‌های لمسی)
+  // افکت کارت‌ها (فقط در دستگاه‌های لمسی، با تپ کوتاه)
   if ('ontouchstart' in window) {
-    const interactiveCards = document.querySelectorAll('.card, .midder-card');
-    interactiveCards.forEach(card => {
-      card.addEventListener('touchstart', () => {
-        card.classList.add('touch-active');
-        setTimeout(() => card.classList.remove('touch-active'), 300);
-      });
-    });
+    const cards = document.querySelectorAll('.card, .midder-card');
     
-    // حذف افکت با تاچ در بیرون از کارت
-    document.addEventListener('touchstart', (e) => {
+    const addEffect = (e) => {
+      if (e.detail === 0) return;
+      const card = e.currentTarget;
+      card.classList.add('touch-active');
+      setTimeout(() => card.classList.remove('touch-active'), 300);
+    };
+    
+    const removeEffect = (e) => {
       if (!e.target.closest('.card, .midder-card')) {
         document.querySelectorAll('.card.touch-active, .midder-card.touch-active').forEach(el => {
           el.classList.remove('touch-active');
         });
       }
-    });
+    };
+    
+    cards.forEach(card => card.addEventListener('click', addEffect));
+    document.addEventListener('click', removeEffect);
   }
   
   if ('serviceWorker' in navigator) {
