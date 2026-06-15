@@ -1,46 +1,75 @@
-const CACHE_NAME = 'broadcastic-v2';
-const ASSETS = [
+const CACHE_NAME = 'broadcastic-v4';
+
+const STATIC_ASSETS = [
   '/',
   '/index.html',
-  '/manifest.json',
   '/favicon.png',
+  '/manifest.json',
   '/header.jpg',
   '/card1.png',
   '/card2.png',
   '/card3.png',
   '/card4.png',
   '/midder.jpg',
-  '/footer.jpg'
+  '/footer.jpg',
 ];
 
-self.addEventListener('install', event => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then(async cache => {
-      try {
-        await cache.addAll(ASSETS);
-      } catch (err) {
-        console.error('Cache addAll failed:', err);
-      }
-    })
+// ─── نصب: کش کردن فایل‌های اصلی ───
+self.addEventListener('install', (e) => {
+  e.waitUntil(
+    caches.open(CACHE_NAME).then(cache => cache.addAll(STATIC_ASSETS))
   );
   self.skipWaiting();
 });
 
-self.addEventListener('fetch', event => {
-  event.respondWith(
-    caches.match(event.request).then(response => {
-      return response || fetch(event.request);
-    })
-  );
-});
-
-self.addEventListener('activate', event => {
-  event.waitUntil(
-    caches.keys().then(keys => {
-      return Promise.all(
-        keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key))
-      );
-    })
+// ─── فعال‌سازی: حذف کش‌های قدیمی ───
+self.addEventListener('activate', (e) => {
+  e.waitUntil(
+    caches.keys().then(keys =>
+      Promise.all(
+        keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k))
+      )
+    )
   );
   self.clients.claim();
+});
+
+// ─── fetch: cache-first برای فایل‌های استاتیک، network-first برای بقیه ───
+self.addEventListener('fetch', (e) => {
+  if (e.request.method !== 'GET') return;
+
+  const url = new URL(e.request.url);
+
+  // فونت‌ها و CDN: cache-first
+  if (
+    url.hostname.includes('fonts.googleapis.com') ||
+    url.hostname.includes('fonts.gstatic.com') ||
+    url.hostname.includes('unpkg.com')
+  ) {
+    e.respondWith(
+      caches.match(e.request).then(cached =>
+        cached || fetch(e.request).then(res => {
+          const clone = res.clone();
+          caches.open(CACHE_NAME).then(c => c.put(e.request, clone));
+          return res;
+        })
+      )
+    );
+    return;
+  }
+
+  // فایل‌های همین دامنه: cache-first با fallback به network
+  if (url.origin === self.location.origin) {
+    e.respondWith(
+      caches.match(e.request).then(cached =>
+        cached || fetch(e.request).then(res => {
+          if (res.ok) {
+            const clone = res.clone();
+            caches.open(CACHE_NAME).then(c => c.put(e.request, clone));
+          }
+          return res;
+        }).catch(() => caches.match('/index.html'))
+      )
+    );
+  }
 });

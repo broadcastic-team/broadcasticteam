@@ -119,7 +119,7 @@
     .cards-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; max-width: 1600px; margin: 0 auto; grid-auto-rows: 1fr; }
     .card {
       border: 1px solid var(--stroke); border-radius: 10px;
-      overflow: visible; background: #0f0f0f;
+      overflow: visible; background: linear-gradient(to top, #181818, #0c0c0c);
       display: flex; flex-direction: column;
       transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
       cursor: pointer;
@@ -169,7 +169,7 @@
     .midder-card {
       border: 1px solid var(--stroke);
       border-radius: 10px;
-      background: #0f0f0f;
+      background: linear-gradient(145deg, #181818, #0c0c0c);
       padding: 14px 18px;
       transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
       cursor: pointer;
@@ -229,7 +229,8 @@
     .midder-bottom-img {
       width: 100%;
       max-width: 100%;
-      border-top: 1px solid var(--stroke);
+      position: relative;
+      border-top: none;
       border-bottom: none;
       background: var(--bg);
       opacity: 0;
@@ -239,6 +240,15 @@
     .midder-bottom-img.visible {
       opacity: 1;
       transform: translateY(0);
+    }
+    .midder-bottom-img::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(101,101,101,0.12), rgba(101,101,101,0.45), rgba(101,101,101,0.12), transparent);
+      pointer-events: none;
+      z-index: 1;
     }
     .midder-bottom-img img {
       width: 100%;
@@ -258,7 +268,7 @@
     .colorbar > div { flex: 1; }
 
     .experiences { padding: var(--midder-gap) 5% var(--gap); background: var(--bg); }
-    .exp-box { border: 1px solid var(--stroke); border-radius: 10px; max-width: 1784px; width: 100%; margin: 0 auto; padding: 36px 60px 40px; box-sizing: border-box; }
+    .exp-box { border: 1px solid var(--stroke); border-radius: 10px; max-width: 1784px; width: 100%; margin: 0 auto; padding: 36px 60px 40px; box-sizing: border-box; background: linear-gradient(to top, #181818, #0c0c0c); }
     .exp-items { display: flex; justify-content: space-around; align-items: flex-start; gap: 20px; }
     .exp-item { display: flex; flex-direction: column; align-items: center; gap: 14px; text-align: center; flex: 1; }
     .exp-icon-wrap { width: 52px; height: 52px; border-radius: 8px; background: var(--red); display: flex; align-items: center; justify-content: center; }
@@ -273,6 +283,7 @@
       max-width: 900px;
       margin: 0 auto 28px auto;
       padding: 40px 48px;
+      background: linear-gradient(to top, #181818, #0c0c0c);
     }
     .contact-box-wrap {
       border: 1px solid var(--stroke);
@@ -281,6 +292,7 @@
       max-width: 900px;
       margin: 0 auto 28px auto;
       padding: 28px 50px;
+      background: linear-gradient(to top, #181818, #0c0c0c);
     }
     .fb-title-wrap { display: flex; align-items: center; justify-content: center; gap: 20px; margin-bottom: 20px; }
     .fb-line { height: 2px; flex: 1; max-width: 120px; background: linear-gradient(to right, transparent, var(--red)); }
@@ -340,6 +352,14 @@
     @media (max-width: 1200px) {
       .cards-grid { grid-template-columns: repeat(2, 1fr); }
       .contact-items { gap: 28px; }
+    }
+
+    @media (min-width: 1200px) {
+      .midder-cards-grid {
+        grid-template-columns: repeat(3, 1fr);
+        max-width: 1400px;
+        margin: 0 auto;
+      }
     }
     
     @media (max-width: 768px) {
