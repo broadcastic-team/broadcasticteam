@@ -2,7 +2,7 @@
 <html lang="fa" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
   <title>Broadcastic Team</title>
   <meta name="description" content="تولید و پخش زنده حرفه‌ای، از استودیو تا رویدادهای میدانی و تلویزیونی" />
   <meta name="theme-color" content="#0a0a0a" />
@@ -649,6 +649,10 @@
 <script>
 (function() {
   if (typeof lucide !== 'undefined') lucide.createIcons();
+  
+  // ─── ریلود از اول صفحه ───
+  if (history.scrollRestoration) history.scrollRestoration = 'manual';
+  window.scrollTo(0, 0);
   
   const contactBtn = document.getElementById('contactBtn');
   if (contactBtn) {
