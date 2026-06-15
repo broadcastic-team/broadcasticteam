@@ -653,6 +653,15 @@
   // ─── ریلود از اول صفحه ───
   if (history.scrollRestoration) history.scrollRestoration = 'manual';
   window.scrollTo(0, 0);
+
+  // ─── جلوگیری از دابل تپ زوم در Safari ───
+  let lastTap = 0;
+  document.addEventListener('touchend', (e) => {
+    if (e.target.closest('.card, .midder-card')) return;
+    const now = Date.now();
+    if (now - lastTap < 300) e.preventDefault();
+    lastTap = now;
+  }, { passive: false });
   
   const contactBtn = document.getElementById('contactBtn');
   if (contactBtn) {
