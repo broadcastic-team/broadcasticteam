@@ -691,6 +691,7 @@
     let longPressTimer = null;
 
     card.addEventListener('touchstart', (e) => {
+      e.stopPropagation();
       startX = e.touches[0].clientX;
       startY = e.touches[0].clientY;
       moved = false;
