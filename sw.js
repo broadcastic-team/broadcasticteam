@@ -1,4 +1,4 @@
-const CACHE_NAME = 'broadcastic-v1';
+const CACHE_NAME = 'broadcastic-v2';
 const ASSETS = [
   '/',
   '/index.html',
