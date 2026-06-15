@@ -444,8 +444,8 @@
     }
     
     /* ─── حذف hover روی touch devices ─── */
-    body.is-touch .card:hover,
-    body.is-touch .midder-card:hover {
+    body.is-touch .card:hover:not(.touch-active),
+    body.is-touch .midder-card:hover:not(.touch-active) {
       transform: none !important;
       box-shadow: none !important;
       border-color: var(--stroke) !important;
