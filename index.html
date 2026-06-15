@@ -683,16 +683,15 @@
   }
 
   // ─── انیمیشن کارت‌ها ───
-  // از click استفاده میکنیم — روی موبایل با تپ، روی دسکتاپ با کلیک
-  // اسکرول هیچ‌وقت click فایر نمیکنه — پس نیازی به touchmove نیست
   const cards = document.querySelectorAll('.card, .midder-card');
   const clearAll = () => cards.forEach(c => c.classList.remove('touch-active'));
 
   cards.forEach(card => {
-    card.addEventListener('click', () => {
+    card.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isActive = card.classList.contains('touch-active');
       clearAll();
-      card.classList.add('touch-active');
-      setTimeout(() => card.classList.remove('touch-active'), 300);
+      if (!isActive) card.classList.add('touch-active');
     });
   });
 
