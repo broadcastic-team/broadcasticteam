@@ -1,4 +1,4 @@
-const CACHE_NAME = 'broadcastic-v4';
+const CACHE_NAME = 'broadcastic-v5';
 
 const STATIC_ASSETS = [
   '/',
@@ -34,7 +34,7 @@ self.addEventListener('activate', (e) => {
   self.clients.claim();
 });
 
-// ─── fetch: cache-first برای فایل‌های استاتیک، network-first برای بقیه ───
+// ─── fetch ───
 self.addEventListener('fetch', (e) => {
   if (e.request.method !== 'GET') return;
 
@@ -47,13 +47,14 @@ self.addEventListener('fetch', (e) => {
     url.hostname.includes('unpkg.com')
   ) {
     e.respondWith(
-      caches.match(e.request).then(cached =>
-        cached || fetch(e.request).then(res => {
+      caches.match(e.request).then(cached => {
+        if (cached) return cached;
+        return fetch(e.request).then(res => {
           const clone = res.clone();
           caches.open(CACHE_NAME).then(c => c.put(e.request, clone));
           return res;
-        })
-      )
+        });
+      })
     );
     return;
   }
@@ -61,15 +62,16 @@ self.addEventListener('fetch', (e) => {
   // فایل‌های همین دامنه: cache-first با fallback به network
   if (url.origin === self.location.origin) {
     e.respondWith(
-      caches.match(e.request).then(cached =>
-        cached || fetch(e.request).then(res => {
+      caches.match(e.request).then(cached => {
+        if (cached) return cached;
+        return fetch(e.request).then(res => {
           if (res.ok) {
             const clone = res.clone();
             caches.open(CACHE_NAME).then(c => c.put(e.request, clone));
           }
           return res;
-        }).catch(() => caches.match('/index.html'))
-      )
+        }).catch(() => caches.match('/index.html'));
+      })
     );
   }
 });
