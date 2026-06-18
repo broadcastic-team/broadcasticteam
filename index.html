@@ -292,7 +292,7 @@
       border: 1px solid var(--stroke);
       border-radius: 10px;
       width: 90%;
-      max-width: 900px;
+      max-width: 700px;
       margin: 0 auto 28px;
       padding: 25px 30px;
       background: linear-gradient(to top, #181818, #0c0c0c);
@@ -318,7 +318,7 @@
       text-align: justify;
     }
 
-    .contact-items { display: flex; justify-content: center; align-items: center; gap: 50px; flex-wrap: wrap; }
+    .contact-items { display: flex; justify-content: center; align-items: center; gap: 25px 40px; flex-wrap: nowrap; }
     .contact-item {
       display: flex; align-items: center; gap: 10px;
       text-decoration: none; color: var(--text-muted);
@@ -332,7 +332,7 @@
       display: flex;
       flex-direction: column;
       align-items: stretch;
-      margin-top: 0;
+      margin-top: 20px;
       width: 100%;
       opacity: 0;
       transform: translateY(40px);
@@ -355,7 +355,6 @@
 
     @media (max-width: 1200px) {
       .cards-grid { grid-template-columns: repeat(2, 1fr); }
-      .contact-items { gap: 28px; }
     }
 
     @media (min-width: 1200px) {
@@ -432,7 +431,7 @@
       }
       .contact-box-wrap {
         padding: 20px;
-        width: 90%;
+        width: 60%;
         max-width: none;
         margin-bottom: 20px;
       }
@@ -757,12 +756,235 @@
   document.addEventListener('click', (e) => {
     if (!e.target.closest('.card, .midder-card')) clearAll();
   });
-  
+
+  document.querySelector('.experiences').style.background = 'transparent';
+  document.querySelector('.footer-section').style.background = 'transparent';
+
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/sw.js').catch(err => {
       console.warn('SW registration failed:', err);
     });
   }
+
+  // ─── تکستچر فوتر با opacity تدریجی هنگام اسکرول ───
+  function getBgImage() {
+    return window.innerWidth <= 768 ? 'footer-bg-mobile.jpg' : 'footer-bg.jpg';
+  }
+
+  function calculateStart() {
+    var midderImg = document.querySelector('.midder-bottom-img');
+    if (!midderImg) return 0.70;
+    var rect = midderImg.getBoundingClientRect();
+    var windowHeight = window.innerHeight;
+    var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    var midderTop = rect.top + window.scrollY;
+    var triggerScrollY = midderTop - (windowHeight * 0.8);
+    var startPercent = Math.min(1, Math.max(0, triggerScrollY / docHeight));
+    return Math.min(1, startPercent + 0.05);
+  }
+
+  var footerBgEl = document.createElement('div');
+  footerBgEl.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background-image:url(' + getBgImage() + ');background-size:cover;background-position:center;background-repeat:no-repeat;z-index:-1;opacity:0;pointer-events:none;';
+  document.body.appendChild(footerBgEl);
+
+  function updateBgImage() {
+    footerBgEl.style.backgroundImage = 'url(' + getBgImage() + ')';
+  }
+
+  var startValue = calculateStart();
+
+  window.addEventListener('scroll', function() {
+    var scrollY = window.scrollY;
+    var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    var percent = docHeight > 0 ? scrollY / docHeight : 0;
+    var opacity = (percent - startValue) / (1 - startValue);
+    if (opacity < 0) opacity = 0;
+    if (opacity > 0.9) opacity = 0.9;
+    if (opacity < 0.01) opacity = 0;
+    footerBgEl.style.opacity = opacity;
+  }, { passive: true });
+
+  // ─── فاصله هوشمند فوتر ───
+  function adjustFooter() {
+    var footerBottom = document.querySelector('.footer-bottom');
+    if (!footerBottom) return;
+    var windowWidth = window.innerWidth;
+    var windowHeight = window.innerHeight;
+
+    if (windowWidth > 1400) {
+      var expBox = document.querySelector('.exp-box');
+      var aboutBox = document.querySelector('.about-box');
+      var contactBox = document.querySelector('.contact-box-wrap');
+
+      var totalContentHeight = 0;
+      [expBox, aboutBox, contactBox].forEach(function(box) {
+        if (box) {
+          var rect = box.getBoundingClientRect();
+          var style = window.getComputedStyle(box);
+          totalContentHeight += rect.height + (parseFloat(style.marginBottom) || 0);
+        }
+      });
+
+      var footerHeight = footerBottom.offsetHeight;
+      var gap = windowHeight - totalContentHeight - footerHeight;
+      if (gap < 10) gap = 10;
+      if (gap > 217) gap = 217;
+
+      footerBottom.style.setProperty('margin-top', gap + 'px', 'important');
+    } else {
+      footerBottom.style.setProperty('margin-top', '20px', 'important');
+    }
+  }
+
+  // ─── تنظیمات سه کادر (تجربه/درباره/ارتباط) + گرادیانت + چیدمان آیتم‌های ارتباط ───
+  function applyLayout() {
+    var windowWidth = window.innerWidth;
+    var expBox = document.querySelector('.exp-box');
+    var aboutBox = document.querySelector('.about-box');
+    var contactBox = document.querySelector('.contact-box-wrap');
+
+    [expBox, aboutBox, contactBox].forEach(function(box) {
+      if (box) {
+        box.style.width = '';
+        box.style.maxWidth = '';
+        box.style.padding = '';
+        box.style.marginLeft = '';
+        box.style.marginRight = '';
+      }
+    });
+
+    if (windowWidth > 768) {
+      if (expBox) {
+        expBox.style.maxWidth = '900px';
+        expBox.style.width = '90%';
+        expBox.style.padding = '25px 30px';
+        expBox.style.marginLeft = 'auto';
+        expBox.style.marginRight = 'auto';
+      }
+      if (aboutBox) {
+        aboutBox.style.maxWidth = '900px';
+        aboutBox.style.width = '90%';
+        aboutBox.style.padding = '25px 30px';
+        aboutBox.style.marginLeft = 'auto';
+        aboutBox.style.marginRight = 'auto';
+      }
+      if (contactBox) {
+        contactBox.style.maxWidth = '700px';
+        contactBox.style.width = '90%';
+        contactBox.style.padding = '25px 30px';
+        contactBox.style.marginLeft = 'auto';
+        contactBox.style.marginRight = 'auto';
+      }
+    } else {
+      if (expBox) {
+        expBox.style.maxWidth = 'none';
+        expBox.style.width = '90%';
+        expBox.style.padding = '20px';
+        expBox.style.marginLeft = 'auto';
+        expBox.style.marginRight = 'auto';
+      }
+      if (aboutBox) {
+        aboutBox.style.maxWidth = 'none';
+        aboutBox.style.width = '90%';
+        aboutBox.style.padding = '20px';
+        aboutBox.style.marginLeft = 'auto';
+        aboutBox.style.marginRight = 'auto';
+      }
+      if (contactBox) {
+        contactBox.style.maxWidth = 'none';
+        contactBox.style.setProperty('width', '60%', 'important');
+        contactBox.style.padding = '20px';
+        contactBox.style.marginLeft = 'auto';
+        contactBox.style.marginRight = 'auto';
+      }
+    }
+
+    var gradient = 'linear-gradient(145deg, rgba(24,24,24,0.5), rgba(12,12,12,0.5))';
+    [expBox, aboutBox, contactBox].forEach(function(box) {
+      if (box) box.style.setProperty('background', gradient, 'important');
+    });
+
+    if (contactBox) {
+      var items = contactBox.querySelector('.contact-items');
+      if (items) {
+        items.removeAttribute('style');
+        var allItems = items.querySelectorAll('.contact-item');
+        allItems.forEach(function(item) {
+          item.removeAttribute('style');
+        });
+
+        if (windowWidth > 768) {
+          items.style.display = 'flex';
+          items.style.flexDirection = 'row';
+          items.style.flexWrap = 'nowrap';
+          items.style.justifyContent = 'center';
+          items.style.alignItems = 'center';
+          items.style.gap = '25px 40px';
+          items.style.width = '100%';
+
+          allItems.forEach(function(item) {
+            item.style.display = 'flex';
+            item.style.alignItems = 'center';
+            item.style.gap = '8px';
+            item.style.flexShrink = '0';
+            item.style.whiteSpace = 'nowrap';
+
+            var icons = item.querySelectorAll('svg, i');
+            icons.forEach(function(icon) {
+              icon.style.width = '22px';
+              icon.style.height = '22px';
+              icon.style.flexShrink = '0';
+              icon.style.minWidth = '22px';
+              icon.style.minHeight = '22px';
+            });
+          });
+        } else {
+          items.style.display = 'flex';
+          items.style.flexDirection = 'column';
+          items.style.alignItems = 'flex-start';
+          items.style.gap = '18px';
+          items.style.width = 'fit-content';
+          items.style.margin = '0 auto';
+
+          allItems.forEach(function(item) {
+            item.style.display = 'flex';
+            item.style.alignItems = 'center';
+            item.style.gap = '8px';
+            item.style.width = 'auto';
+
+            var icons = item.querySelectorAll('svg, i');
+            icons.forEach(function(icon) {
+              icon.style.width = '22px';
+              icon.style.height = '22px';
+              icon.style.flexShrink = '0';
+              icon.style.minWidth = '22px';
+              icon.style.minHeight = '22px';
+            });
+          });
+        }
+      }
+    }
+  }
+
+  // ─── اجرای اولیه و رفرش روی resize/load ───
+  function refreshAll() {
+    updateBgImage();
+    startValue = calculateStart();
+    adjustFooter();
+    applyLayout();
+  }
+
+  setTimeout(refreshAll, 500);
+
+  var resizeTimer;
+  window.addEventListener('resize', function() {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(refreshAll, 300);
+  });
+
+  window.addEventListener('load', function() {
+    setTimeout(refreshAll, 600);
+  });
 })();
 </script>
 </body>

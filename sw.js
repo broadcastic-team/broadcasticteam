@@ -1,4 +1,4 @@
-const CACHE_NAME = 'broadcastic-v5';
+const CACHE_NAME = 'broadcastic-v6';
 
 const STATIC_ASSETS = [
   '/',
@@ -11,6 +11,8 @@ const STATIC_ASSETS = [
   '/card3.png',
   '/card4.png',
   '/midder.jpg',
+  '/footer-bg.jpg',
+  '/footer-bg-mobile.jpg',
   '/footer.jpg',
 ];
 
@@ -34,6 +36,22 @@ self.addEventListener('activate', (e) => {
   self.clients.claim();
 });
 
+// ─── استراتژی مشترک: cache-first با fallback به network ───
+function cacheFirst(request, { fallbackToIndex = false } = {}) {
+  return caches.match(request).then(cached => {
+    if (cached) return cached;
+    return fetch(request).then(res => {
+      if (res.ok) {
+        const clone = res.clone();
+        caches.open(CACHE_NAME).then(c => c.put(request, clone));
+      }
+      return res;
+    }).catch(() => {
+      if (fallbackToIndex) return caches.match('/index.html');
+    });
+  });
+}
+
 // ─── fetch ───
 self.addEventListener('fetch', (e) => {
   if (e.request.method !== 'GET') return;
@@ -46,32 +64,12 @@ self.addEventListener('fetch', (e) => {
     url.hostname.includes('fonts.gstatic.com') ||
     url.hostname.includes('unpkg.com')
   ) {
-    e.respondWith(
-      caches.match(e.request).then(cached => {
-        if (cached) return cached;
-        return fetch(e.request).then(res => {
-          const clone = res.clone();
-          caches.open(CACHE_NAME).then(c => c.put(e.request, clone));
-          return res;
-        });
-      })
-    );
+    e.respondWith(cacheFirst(e.request));
     return;
   }
 
   // فایل‌های همین دامنه: cache-first با fallback به network
   if (url.origin === self.location.origin) {
-    e.respondWith(
-      caches.match(e.request).then(cached => {
-        if (cached) return cached;
-        return fetch(e.request).then(res => {
-          if (res.ok) {
-            const clone = res.clone();
-            caches.open(CACHE_NAME).then(c => c.put(e.request, clone));
-          }
-          return res;
-        }).catch(() => caches.match('/index.html'));
-      })
-    );
+    e.respondWith(cacheFirst(e.request, { fallbackToIndex: true }));
   }
 });
