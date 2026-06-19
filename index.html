@@ -712,7 +712,16 @@
   if (contactBtn) {
     contactBtn.addEventListener('click', (e) => {
       e.preventDefault();
-      document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+      var doScroll = function() {
+        document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+      };
+      if (document.readyState === 'complete') {
+        doScroll();
+      } else {
+        window.addEventListener('load', function() {
+          setTimeout(doScroll, 100);
+        }, { once: true });
+      }
     });
   }
   
@@ -784,7 +793,7 @@
   }
 
   var footerBgEl = document.createElement('div');
-  footerBgEl.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background-image:url(' + getBgImage() + ');background-size:cover;background-position:center;background-repeat:no-repeat;z-index:-1;opacity:0;pointer-events:none;';
+  footerBgEl.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:' + screen.height + 'px;background-image:url(' + getBgImage() + ');background-size:cover;background-position:center;background-repeat:no-repeat;z-index:-1;opacity:0;pointer-events:none;';
   document.body.appendChild(footerBgEl);
 
   function updateBgImage() {
