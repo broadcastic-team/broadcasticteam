@@ -38,8 +38,6 @@
 
     .hero {
       position: relative;
-      z-index: 1;
-      position: relative;
       height: 100vh;
       height: 100svh;
       min-height: 600px;
@@ -118,7 +116,7 @@
     .stl.r { background: linear-gradient(to right, transparent, var(--red)); }
     .section-title { font-size: 1.6rem; font-weight: 800; color: #fff; letter-spacing: var(--ls); white-space: nowrap; }
 
-    .services { padding: 30px 5% 10px; background: var(--bg); position: relative; z-index: 1; }
+    .services { padding: 30px 5% 10px; background: var(--bg); }
     .cards-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; max-width: 1600px; margin: 0 auto; grid-auto-rows: 1fr; }
     .card {
       border: 1px solid var(--stroke); border-radius: 10px;
@@ -160,8 +158,6 @@
     .midder-cards {
       padding: 50px 5% var(--midder-gap);
       background: var(--bg);
-      position: relative;
-      z-index: 1;
     }
     .midder-cards-grid {
       display: grid;
@@ -235,7 +231,6 @@
       width: 100%;
       max-width: 100%;
       position: relative;
-      z-index: 1;
       border-top: none;
       border-bottom: none;
       background: var(--bg);
@@ -274,7 +269,7 @@
     }
     .colorbar > div { flex: 1; }
 
-    .experiences { padding: 0; margin: 0; background: transparent; position: relative; z-index: 1; }
+    .experiences { padding: 0; margin: 0; background: var(--bg); }
     .exp-box { border: 1px solid var(--stroke); border-radius: 10px; max-width: 900px; width: 90%; margin: 0 auto 50px; padding: 25px 30px; box-sizing: border-box; background: linear-gradient(to top, #181818, #0c0c0c); text-align: center; }
     .exp-items { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; justify-items: center; align-items: start; width: 100%; margin: 0 auto; padding: 0; }
     .exp-item { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; text-align: center; width: 100%; padding: 4px 0; }
@@ -282,7 +277,7 @@
     .exp-icon-wrap svg { width: 28px; height: 28px; stroke: #fff; }
     .exp-label { font-size: 1rem; font-weight: 500; color: var(--text-muted); letter-spacing: var(--ls); }
 
-    .footer-section { padding: 0; margin: 0; background: transparent; position: relative; z-index: 1; }
+    .footer-section { padding: 0; margin: 0; background: var(--bg); }
     .about-box {
       border: 1px solid var(--stroke);
       border-radius: 10px;
@@ -715,10 +710,9 @@
   
   const contactBtn = document.getElementById('contactBtn');
   if (contactBtn) {
-    contactBtn.addEventListener('click', function(e) {
+    contactBtn.addEventListener('click', (e) => {
       e.preventDefault();
-      var target = document.querySelector('.contact-box-wrap') || document.getElementById('contact');
-      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
     });
   }
   
@@ -763,6 +757,9 @@
     if (!e.target.closest('.card, .midder-card')) clearAll();
   });
 
+  document.querySelector('.experiences').style.background = 'transparent';
+  document.querySelector('.footer-section').style.background = 'transparent';
+
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/sw.js').catch(err => {
       console.warn('SW registration failed:', err);
@@ -787,7 +784,7 @@
   }
 
   var footerBgEl = document.createElement('div');
-  footerBgEl.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:' + screen.height + 'px;background-image:url(' + getBgImage() + ');background-size:cover;background-position:center;background-repeat:no-repeat;z-index:0;opacity:0;pointer-events:none;will-change:opacity;-webkit-transform:translateZ(0);transform:translateZ(0);';
+  footerBgEl.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background-image:url(' + getBgImage() + ');background-size:cover;background-position:center;background-repeat:no-repeat;z-index:-1;opacity:0;pointer-events:none;';
   document.body.appendChild(footerBgEl);
 
   function updateBgImage() {
