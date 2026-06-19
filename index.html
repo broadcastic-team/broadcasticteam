@@ -269,7 +269,7 @@
     }
     .colorbar > div { flex: 1; }
 
-    .experiences { padding: 0; margin: 0; background: var(--bg); }
+    .experiences { padding: 0; margin: 0; background: transparent; }
     .exp-box { border: 1px solid var(--stroke); border-radius: 10px; max-width: 900px; width: 90%; margin: 0 auto 50px; padding: 25px 30px; box-sizing: border-box; background: linear-gradient(to top, #181818, #0c0c0c); text-align: center; }
     .exp-items { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; justify-items: center; align-items: start; width: 100%; margin: 0 auto; padding: 0; }
     .exp-item { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; text-align: center; width: 100%; padding: 4px 0; }
@@ -277,7 +277,7 @@
     .exp-icon-wrap svg { width: 28px; height: 28px; stroke: #fff; }
     .exp-label { font-size: 1rem; font-weight: 500; color: var(--text-muted); letter-spacing: var(--ls); }
 
-    .footer-section { padding: 0; margin: 0; background: var(--bg); }
+    .footer-section { padding: 0; margin: 0; background: transparent; }
     .about-box {
       border: 1px solid var(--stroke);
       border-radius: 10px;
@@ -710,18 +710,45 @@
   
   const contactBtn = document.getElementById('contactBtn');
   if (contactBtn) {
-    contactBtn.addEventListener('click', (e) => {
+    contactBtn.addEventListener('click', function(e) {
       e.preventDefault();
+      var target = document.getElementById('contact');
+      if (!target) return;
+
       var doScroll = function() {
-        document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+        target.scrollIntoView({ behavior: 'smooth' });
       };
-      if (document.readyState === 'complete') {
+
+      // عکس‌های lazy که هنوز لود نشدن و بالای #contact هستند
+      var targetTop = target.getBoundingClientRect().top + window.scrollY;
+      var lazyImgs = Array.from(document.querySelectorAll('img[loading="lazy"]')).filter(function(img) {
+        return !img.complete && (img.getBoundingClientRect().top + window.scrollY < targetTop);
+      });
+
+      if (lazyImgs.length === 0) {
         doScroll();
-      } else {
-        window.addEventListener('load', function() {
-          setTimeout(doScroll, 100);
-        }, { once: true });
+        return;
       }
+
+      // force-load و صبر برای همه
+      var done = false;
+      var loaded = 0;
+      var onLoad = function() {
+        loaded++;
+        if (loaded >= lazyImgs.length && !done) {
+          done = true;
+          doScroll();
+        }
+      };
+      lazyImgs.forEach(function(img) {
+        img.loading = 'eager';
+        img.addEventListener('load', onLoad, { once: true });
+        img.addEventListener('error', onLoad, { once: true });
+      });
+      // fallback: حداکثر ۲ ثانیه صبر
+      setTimeout(function() {
+        if (!done) { done = true; doScroll(); }
+      }, 2000);
     });
   }
   
@@ -765,9 +792,6 @@
   document.addEventListener('click', (e) => {
     if (!e.target.closest('.card, .midder-card')) clearAll();
   });
-
-  document.querySelector('.experiences').style.background = 'transparent';
-  document.querySelector('.footer-section').style.background = 'transparent';
 
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/sw.js').catch(err => {
