@@ -38,6 +38,8 @@
 
     .hero {
       position: relative;
+      z-index: 1;
+      position: relative;
       height: 100vh;
       height: 100svh;
       min-height: 600px;
@@ -116,7 +118,7 @@
     .stl.r { background: linear-gradient(to right, transparent, var(--red)); }
     .section-title { font-size: 1.6rem; font-weight: 800; color: #fff; letter-spacing: var(--ls); white-space: nowrap; }
 
-    .services { padding: 30px 5% 10px; background: var(--bg); }
+    .services { padding: 30px 5% 10px; background: var(--bg); position: relative; z-index: 1; }
     .cards-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; max-width: 1600px; margin: 0 auto; grid-auto-rows: 1fr; }
     .card {
       border: 1px solid var(--stroke); border-radius: 10px;
@@ -158,6 +160,8 @@
     .midder-cards {
       padding: 50px 5% var(--midder-gap);
       background: var(--bg);
+      position: relative;
+      z-index: 1;
     }
     .midder-cards-grid {
       display: grid;
@@ -231,6 +235,7 @@
       width: 100%;
       max-width: 100%;
       position: relative;
+      z-index: 1;
       border-top: none;
       border-bottom: none;
       background: var(--bg);
@@ -269,7 +274,7 @@
     }
     .colorbar > div { flex: 1; }
 
-    .experiences { padding: 0; margin: 0; background: transparent; }
+    .experiences { padding: 0; margin: 0; background: transparent; position: relative; z-index: 1; }
     .exp-box { border: 1px solid var(--stroke); border-radius: 10px; max-width: 900px; width: 90%; margin: 0 auto 50px; padding: 25px 30px; box-sizing: border-box; background: linear-gradient(to top, #181818, #0c0c0c); text-align: center; }
     .exp-items { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; justify-items: center; align-items: start; width: 100%; margin: 0 auto; padding: 0; }
     .exp-item { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; text-align: center; width: 100%; padding: 4px 0; }
@@ -277,7 +282,7 @@
     .exp-icon-wrap svg { width: 28px; height: 28px; stroke: #fff; }
     .exp-label { font-size: 1rem; font-weight: 500; color: var(--text-muted); letter-spacing: var(--ls); }
 
-    .footer-section { padding: 0; margin: 0; background: transparent; }
+    .footer-section { padding: 0; margin: 0; background: transparent; position: relative; z-index: 1; }
     .about-box {
       border: 1px solid var(--stroke);
       border-radius: 10px;
@@ -712,43 +717,8 @@
   if (contactBtn) {
     contactBtn.addEventListener('click', function(e) {
       e.preventDefault();
-      var target = document.getElementById('contact');
-      if (!target) return;
-
-      var doScroll = function() {
-        target.scrollIntoView({ behavior: 'smooth' });
-      };
-
-      // عکس‌های lazy که هنوز لود نشدن و بالای #contact هستند
-      var targetTop = target.getBoundingClientRect().top + window.scrollY;
-      var lazyImgs = Array.from(document.querySelectorAll('img[loading="lazy"]')).filter(function(img) {
-        return !img.complete && (img.getBoundingClientRect().top + window.scrollY < targetTop);
-      });
-
-      if (lazyImgs.length === 0) {
-        doScroll();
-        return;
-      }
-
-      // force-load و صبر برای همه
-      var done = false;
-      var loaded = 0;
-      var onLoad = function() {
-        loaded++;
-        if (loaded >= lazyImgs.length && !done) {
-          done = true;
-          doScroll();
-        }
-      };
-      lazyImgs.forEach(function(img) {
-        img.loading = 'eager';
-        img.addEventListener('load', onLoad, { once: true });
-        img.addEventListener('error', onLoad, { once: true });
-      });
-      // fallback: حداکثر ۲ ثانیه صبر
-      setTimeout(function() {
-        if (!done) { done = true; doScroll(); }
-      }, 2000);
+      var target = document.querySelector('.contact-box-wrap') || document.getElementById('contact');
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'center' });
     });
   }
   
@@ -817,7 +787,7 @@
   }
 
   var footerBgEl = document.createElement('div');
-  footerBgEl.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:' + screen.height + 'px;background-image:url(' + getBgImage() + ');background-size:cover;background-position:center;background-repeat:no-repeat;z-index:-1;opacity:0;pointer-events:none;';
+  footerBgEl.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:' + screen.height + 'px;background-image:url(' + getBgImage() + ');background-size:cover;background-position:center;background-repeat:no-repeat;z-index:0;opacity:0;pointer-events:none;will-change:opacity;-webkit-transform:translateZ(0);transform:translateZ(0);';
   document.body.appendChild(footerBgEl);
 
   function updateBgImage() {
