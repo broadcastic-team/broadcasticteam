@@ -712,12 +712,15 @@
   if (contactBtn) {
     contactBtn.addEventListener('click', function(e) {
       e.preventDefault();
-      var contactBox = document.querySelector('.contact-box-wrap');
-      if (!contactBox) return;
-      setTimeout(function() {
-        var y = contactBox.getBoundingClientRect().top + window.scrollY - 20;
-        window.scrollTo({ top: y, behavior: 'smooth' });
-      }, 600);
+      var target = document.querySelector('.contact-box-wrap');
+      if (!target) return;
+      applyLayout();
+      target.classList.add('visible');
+      requestAnimationFrame(function() {
+        requestAnimationFrame(function() {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      });
     });
   }
   
