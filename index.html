@@ -710,9 +710,14 @@
   
   const contactBtn = document.getElementById('contactBtn');
   if (contactBtn) {
-    contactBtn.addEventListener('click', (e) => {
+    contactBtn.addEventListener('click', function(e) {
       e.preventDefault();
-      document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+      var contactBox = document.querySelector('.contact-box-wrap');
+      if (!contactBox) return;
+      setTimeout(function() {
+        var y = contactBox.getBoundingClientRect().top + window.scrollY - 20;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+      }, 600);
     });
   }
   
@@ -784,11 +789,26 @@
   }
 
   var footerBgEl = document.createElement('div');
-  footerBgEl.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background-image:url(' + getBgImage() + ');background-size:cover;background-position:center;background-repeat:no-repeat;z-index:-1;opacity:0;pointer-events:none;';
+  footerBgEl.style.cssText = 'position:fixed;top:0;left:0;width:100%;background-size:cover;background-repeat:no-repeat;z-index:-1;opacity:0;pointer-events:none;will-change:opacity;';
   document.body.appendChild(footerBgEl);
 
-  function updateBgImage() {
+  function updateBgStyle() {
+    var isMobile = window.innerWidth <= 768;
     footerBgEl.style.backgroundImage = 'url(' + getBgImage() + ')';
+    if (isMobile) {
+      footerBgEl.style.height = '100svh';
+      footerBgEl.style.backgroundPosition = 'center bottom';
+      footerBgEl.style.transform = 'none';
+      var mask = 'linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%)';
+      footerBgEl.style.maskImage = mask;
+      footerBgEl.style.webkitMaskImage = mask;
+    } else {
+      footerBgEl.style.height = '100%';
+      footerBgEl.style.backgroundPosition = 'center';
+      footerBgEl.style.transform = '';
+      footerBgEl.style.maskImage = '';
+      footerBgEl.style.webkitMaskImage = '';
+    }
   }
 
   var startValue = calculateStart();
@@ -968,7 +988,7 @@
 
   // ─── اجرای اولیه و رفرش روی resize/load ───
   function refreshAll() {
-    updateBgImage();
+    updateBgStyle();
     startValue = calculateStart();
     adjustFooter();
     applyLayout();
