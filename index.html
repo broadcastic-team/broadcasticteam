@@ -101,6 +101,18 @@
       animation: fadeUp 0.9s ease forwards 0.55s;
       margin-bottom: clamp(20px, 3vw, 32px);
     }
+    .hero-title-main {
+      display: block;
+      font-size: 1.2em;
+      color: #fff;
+      margin-bottom: 22px;
+    }
+    .hero-title-sub {
+      display: block;
+      font-size: 0.8em;
+      color: var(--red);
+      font-weight: 600;
+    }
     .hero-subtitle {
       font-size: clamp(0.9rem, 1.2vw, 1.15rem);
       font-weight: 300; color: #c8c8c8; max-width: 600px; line-height: 1.75; letter-spacing: var(--ls);
@@ -431,9 +443,6 @@
       .hero-logo { width: 46px; height: 46px; right: 20px; top: 16px; }
       .stl { width: 60px; }
       .section-title { font-size: 1.2rem; white-space: normal; text-align: center; }
-      .hero-title-en { font-size: clamp(1.8rem, 6vw, 2.6rem); }
-      .hero-title-fa { font-size: clamp(1.2rem, 4vw, 1.8rem); }
-      .hero-subtitle { font-size: clamp(0.8rem, 2.5vw, 0.95rem); max-width: 100%; }
       .midder-bottom-img { margin-bottom: 35px; }
       .midder-bottom-img img { aspect-ratio: auto; height: auto; }
       .exp-box { padding: 20px; margin-bottom: 35px; }
@@ -494,8 +503,6 @@
       .midder-card-desc { font-size: 0.75rem; }
       .card-desc { font-size: 0.9rem; }
       .about-text { font-size: 0.85rem; }
-      .hero-title-en { font-size: clamp(2rem, 5vw, 3.2rem); }
-      .hero-subtitle { font-size: clamp(0.8rem, 1vw, 0.95rem); }
     }
     
     /* ─── حذف hover روی touch devices ─── */
@@ -521,7 +528,7 @@
   <div class="hero-content">
     <h1 class="hero-title-en">BROADCASTIC <span class="team">TEAM</span></h1>
     <div class="hero-divider"></div>
-    <p class="hero-title-fa"><span style="display:block;font-size:1.2em;color:#fff;margin-bottom:22px">تولید و پخش زنده</span><span style="display:block;font-size:0.8em;color:var(--red);font-weight:600">از استودیو تا رویدادهای میدانی و تلویزیونی</span></p>
+    <p class="hero-title-fa"><span class="hero-title-main">تولید و پخش زنده</span><span class="hero-title-sub">از استودیو تا رویدادهای میدانی و تلویزیونی</span></p>
     <p class="hero-subtitle">پوشش تخصصی برنامه‌ها و رویدادهای تصویری</p>
     <a href="#contact" class="hero-btn" id="contactBtn">
       <i data-lucide="user-round" style="width:20px;height:20px;stroke:#fff;flex-shrink:0;"></i>
@@ -890,90 +897,17 @@
     }
   }
 
-  // ─── تنظیمات سه کادر (تجربه/درباره/ارتباط) + گرادیانت + چیدمان آیتم‌های ارتباط ───
+  // ─── چیدمان آیتم‌های ارتباط ───
   function applyLayout() {
     var windowWidth = window.innerWidth;
-    var expBox = document.querySelector('.exp-box');
-    var aboutBox = document.querySelector('.about-box');
     var contactBox = document.querySelector('.contact-box-wrap');
-
-    [expBox, aboutBox, contactBox].forEach(function(box) {
-      if (box) {
-        box.style.width = '';
-        box.style.maxWidth = '';
-        box.style.padding = '';
-        box.style.marginLeft = '';
-        box.style.marginRight = '';
-      }
-    });
-
-    if (windowWidth > 768) {
-      if (expBox) {
-        expBox.style.maxWidth = '900px';
-        expBox.style.width = '90%';
-        expBox.style.padding = '25px 30px';
-        expBox.style.marginLeft = 'auto';
-        expBox.style.marginRight = 'auto';
-      }
-      if (aboutBox) {
-        aboutBox.style.maxWidth = '900px';
-        aboutBox.style.width = '90%';
-        aboutBox.style.padding = '25px 30px';
-        aboutBox.style.marginLeft = 'auto';
-        aboutBox.style.marginRight = 'auto';
-      }
-      if (contactBox) {
-        contactBox.style.maxWidth = '700px';
-        contactBox.style.width = '90%';
-        contactBox.style.padding = '25px 30px';
-        contactBox.style.marginLeft = 'auto';
-        contactBox.style.marginRight = 'auto';
-      }
-    } else {
-      if (expBox) {
-        expBox.style.maxWidth = 'none';
-        expBox.style.width = '90%';
-        expBox.style.padding = '20px';
-        expBox.style.marginLeft = 'auto';
-        expBox.style.marginRight = 'auto';
-      }
-      if (aboutBox) {
-        aboutBox.style.maxWidth = 'none';
-        aboutBox.style.width = '90%';
-        aboutBox.style.padding = '20px';
-        aboutBox.style.marginLeft = 'auto';
-        aboutBox.style.marginRight = 'auto';
-      }
-      if (contactBox) {
-        contactBox.style.maxWidth = 'none';
-        contactBox.style.setProperty('width', '60%', 'important');
-        contactBox.style.padding = '20px';
-        contactBox.style.marginLeft = 'auto';
-        contactBox.style.marginRight = 'auto';
-      }
-    }
-
-    var glass = 'rgba(255,255,255,0.03)';
-    var glassBorder = '1px solid rgba(255,255,255,0.12)';
-    var glassShadow = '0 8px 40px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.08)';
-    [expBox, aboutBox, contactBox].forEach(function(box) {
-      if (box) {
-        box.style.setProperty('background', glass, 'important');
-        box.style.setProperty('backdrop-filter', 'blur(1.5px) saturate(1.03)', 'important');
-        box.style.setProperty('-webkit-backdrop-filter', 'blur(1.5px) saturate(1.03)', 'important');
-        box.style.setProperty('border', glassBorder, 'important');
-        box.style.setProperty('box-shadow', glassShadow, 'important');
-      }
-    });
 
     if (contactBox) {
       var items = contactBox.querySelector('.contact-items');
       if (items) {
         items.removeAttribute('style');
         var allItems = items.querySelectorAll('.contact-item');
-        allItems.forEach(function(item) {
-          item.removeAttribute('style');
-        });
+        allItems.forEach(function(item) { item.removeAttribute('style'); });
 
         if (windowWidth > 768) {
           items.style.display = 'flex';
@@ -990,9 +924,7 @@
             item.style.gap = '8px';
             item.style.flexShrink = '0';
             item.style.whiteSpace = 'nowrap';
-
-            var icons = item.querySelectorAll('svg, i');
-            icons.forEach(function(icon) {
+            item.querySelectorAll('svg, i').forEach(function(icon) {
               icon.style.width = '22px';
               icon.style.height = '22px';
               icon.style.flexShrink = '0';
@@ -1013,9 +945,7 @@
             item.style.alignItems = 'center';
             item.style.gap = '8px';
             item.style.width = 'auto';
-
-            var icons = item.querySelectorAll('svg, i');
-            icons.forEach(function(icon) {
+            item.querySelectorAll('svg, i').forEach(function(icon) {
               icon.style.width = '22px';
               icon.style.height = '22px';
               icon.style.flexShrink = '0';
