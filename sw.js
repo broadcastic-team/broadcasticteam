@@ -1,4 +1,4 @@
-const CACHE_NAME = 'broadcastic-v6';
+const CACHE_NAME = 'broadcastic-v7';
 
 const STATIC_ASSETS = [
   '/',
