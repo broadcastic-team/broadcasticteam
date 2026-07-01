@@ -213,11 +213,6 @@
       -webkit-tap-highlight-color: transparent;
       outline: none;
     }
-
-    /* ─── کلاس کمکی برای ریست اجباری استایل (بدون انیمیشن) ─── */
-    .no-transition, .no-transition * {
-      transition: none !important;
-    }
   </style>
 </head>
 <body>
@@ -294,35 +289,12 @@
     setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
   });
 
-  // ─── ریست اجباری حالت هاور/اکتیو وقتی از اپ دیگه (تماس، تلگرام، اینستاگرام، ذخیره مخاطب) برمی‌گردیم ───
-  // نکته: تپ روی tel:/دیپ‌لینک‌ها صفحه رو navigate نمی‌کنه، فقط background می‌بره؛
-  // پس رویداد درست visibilitychange هست نه pageshow (که مخصوص ناوبری/بازگشت با دکمه back مرورگره).
-  function resetInteractiveStates() {
-    var interactiveEls = document.querySelectorAll(
-      '.website-link, .contact-row, .social-square, .vcard-btn'
-    );
-
-    interactiveEls.forEach(function (el) {
-      el.blur();
-    });
-    if (document.activeElement && typeof document.activeElement.blur === 'function') {
+  // ─── تپ در هر جای دیگه‌ی صفحه، حالت گیرکرده هاور/اکتیو رو پاک می‌کنه ───
+  document.addEventListener('touchstart', function () {
+    if (document.activeElement && document.activeElement !== document.body) {
       document.activeElement.blur();
     }
-
-    document.body.classList.add('no-transition');
-    void document.body.offsetHeight;
-    requestAnimationFrame(function () {
-      document.body.classList.remove('no-transition');
-    });
-  }
-
-  document.addEventListener('visibilitychange', function () {
-    if (document.visibilityState === 'visible') {
-      resetInteractiveStates();
-    }
-  });
-
-  window.addEventListener('pageshow', resetInteractiveStates);
+  }, { passive: true });
 </script>
 
 </body>
