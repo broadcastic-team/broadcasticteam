@@ -55,6 +55,8 @@
         background-image: url('../footer-bg-mobile.jpg');
         height: 100vh;
         width: 100%;
+        mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%);
+        -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%);
       }
     }
     @media (min-width: 769px) {
@@ -253,6 +255,7 @@
     var vcard = [
       'BEGIN:VCARD',
       'VERSION:3.0',
+      'N:Abbasi;Mohammad;;;',
       'FN:Mohammad Abbasi',
       'ORG:BROADCASTIC TEAM',
       'TEL;TYPE=CELL:+989364904538',
