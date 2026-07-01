@@ -131,9 +131,10 @@
       display: flex; align-items: center; justify-content: center; gap: 10px;
       color: #fff; text-decoration: none; direction: ltr;
       font-size: clamp(1.02rem, 4vw, 1.18rem); font-weight: 600; letter-spacing: 0.01em;
-      transition: color 0.2s;
+      transition: color 0.25s ease;
     }
     .website-link:hover { color: var(--red); }
+    .website-link:active { color: var(--red); }
     .website-link svg { width: 24px; height: 24px; stroke: var(--red); flex-shrink: 0; }
 
     .contact-box { display: flex; flex-direction: column; align-items: center; gap: clamp(10px, 2vh, 14px); }
@@ -141,9 +142,10 @@
       display: flex; align-items: center; justify-content: center; gap: 10px;
       color: #fff; text-decoration: none; direction: ltr;
       font-size: clamp(1.02rem, 4vw, 1.18rem); font-weight: 600; letter-spacing: 0.01em;
-      transition: color 0.2s;
+      transition: color 0.25s ease;
     }
     .contact-row:hover { color: var(--red); }
+    .contact-row:active { color: var(--red); }
     .contact-row svg { width: 24px; height: 24px; stroke: var(--red); flex-shrink: 0; }
 
     .vcard-btn {
@@ -195,6 +197,11 @@
       opacity: 0.92;
       border-radius: 50%;
       animation: logoPulse 3s ease-in-out infinite;
+    }
+
+    /* ─── رفع هایلایت آبی موبایل ─── */
+    a, button, .social-square, .vcard-btn, .website-link, .contact-row {
+      -webkit-tap-highlight-color: transparent;
     }
   </style>
 </head>
