@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>Broadcastic Team</title>
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet" />
+  <meta name="googlebot" content="noindex, nofollow" />
+  <meta name="theme-color" content="#0a0a0a" />
+  <link rel="apple-touch-icon" href="../favicon.png" />
+  <link rel="icon" type="image/png" href="../favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <style>
+    :root {
+      --red: #a9181c;
+      --stroke: #656565;
+      --bg: #0a0a0a;
+      --text-secondary: #d6d6d6;
+      --text-muted: #cececf;
+      --ls: -0.025em;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      height: 100%;
+      overflow: hidden;
+      overscroll-behavior: none;
+    }
+    body {
+      font-family: 'Vazirmatn', sans-serif;
+      background: var(--bg);
+      color: #fff;
+      direction: rtl;
+      letter-spacing: var(--ls);
+      touch-action: manipulation;
+      position: fixed;
+      inset: 0;
+      width: 100%;
+    }
+
+    /* ─── پس‌زمینه ─── */
+    .bg-layer {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center bottom;
+      background-attachment: fixed;
+    }
+    @media (max-width: 768px) {
+      .bg-layer {
+        background-image: url('../footer-bg-mobile.jpg');
+        height: 100vh;
+        width: 100%;
+      }
+    }
+    @media (min-width: 769px) {
+      .bg-layer {
+        background-image: url('../footer-bg.jpg');
+        height: 100vh;
+      }
+    }
+    .bg-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background: rgba(0,0,0,0.28);
+    }
+
+    /* ─── محتوا ─── */
+    .qr-page {
+      position: relative;
+      z-index: 1;
+      height: 100vh;
+      height: 100vh;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: clamp(14px, 3vh, 28px) 6% max(clamp(14px, 3vh, 28px), env(safe-area-inset-bottom));
+      text-align: center;
+      gap: clamp(12px, 2vh, 18px);
+      overflow: hidden;
+    }
+
+    /* ─── هیرو (برند) ─── */
+    .qr-hero { display: flex; flex-direction: column; align-items: center; margin-top: 22px; }
+    .hero-title-en {
+      font-size: clamp(1.5rem, 6.5vw, 2.3rem);
+      font-weight: 900; letter-spacing: var(--ls); line-height: 1;
+      background: linear-gradient(135deg, #b0b0b0 0%, #ffffff 35%, #c8c8c8 60%, #909090 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      margin-bottom: clamp(8px, 1.6vh, 14px);
+    }
+    .hero-title-en .team { font-weight: 300; white-space: nowrap; }
+    .hero-divider {
+      width: 180px; max-width: 55%; height: 2px;
+      margin: 0 auto clamp(8px, 1.6vh, 14px);
+      border-radius: 2px;
+      background: linear-gradient(to left, transparent, var(--red), transparent);
+    }
+    .hero-title-fa {
+      font-size: clamp(0.95rem, 4vw, 1.3rem);
+      font-weight: 800; letter-spacing: var(--ls); line-height: 1.3;
+      margin-bottom: clamp(6px, 1.2vh, 10px);
+    }
+    .hero-title-main { display: block; font-size: 1.22em; color: #fff; margin-bottom: 6px; }
+    .hero-title-sub { display: block; font-size: 0.88em; color: var(--red); font-weight: 600; }
+    .hero-subtitle {
+      font-size: clamp(0.72rem, 3vw, 0.9rem);
+      font-weight: 300; color: #c8c8c8; max-width: 92%; line-height: 1.6; letter-spacing: var(--ls);
+    }
+
+    /* ─── کادرهای لیکویید گلس ─── */
+    .glass-box {
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 10px;
+      background: rgba(255,255,255,0.03);
+      backdrop-filter: blur(1.5px) saturate(1.03);
+      -webkit-backdrop-filter: blur(1.5px) saturate(1.03);
+      box-shadow: 0 8px 40px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.08);
+      width: min(82%, 320px);
+      padding: clamp(10px, 2vh, 16px) clamp(16px, 4vw, 26px);
+    }
+
+    .website-link {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      color: #fff; text-decoration: none; direction: ltr;
+      font-size: clamp(1.02rem, 4vw, 1.18rem); font-weight: 600; letter-spacing: 0.01em;
+      transition: color 0.2s;
+    }
+    .website-link:hover { color: var(--red); }
+    .website-link svg { width: 24px; height: 24px; stroke: var(--red); flex-shrink: 0; }
+
+    .contact-box { display: flex; flex-direction: column; align-items: center; gap: clamp(10px, 2vh, 14px); }
+    .contact-row {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      color: #fff; text-decoration: none; direction: ltr;
+      font-size: clamp(1.02rem, 4vw, 1.18rem); font-weight: 600; letter-spacing: 0.01em;
+      transition: color 0.2s;
+    }
+    .contact-row:hover { color: var(--red); }
+    .contact-row svg { width: 24px; height: 24px; stroke: var(--red); flex-shrink: 0; }
+
+    .vcard-btn {
+      margin-top: 4px;
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--red); color: #fff;
+      font-family: 'Vazirmatn', sans-serif;
+      font-size: clamp(0.78rem, 3.2vw, 0.9rem);
+      font-weight: 600; letter-spacing: var(--ls);
+      padding: clamp(8px, 1.6vh, 11px) clamp(18px, 5vw, 26px);
+      border: none; cursor: pointer;
+      border-radius: 6px; text-decoration: none;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.7);
+      transition: transform 0.25s ease, background 0.25s ease;
+    }
+    .vcard-btn:hover { background: #c41e23; transform: translateY(-2px); }
+    .vcard-btn:active { transform: translateY(0) scale(0.97); }
+    .vcard-btn svg { width: 17px; height: 17px; stroke: #fff; flex-shrink: 0; }
+
+    /* ─── دکمه‌های مربعی سوشال ─── */
+    .social-row { display: flex; align-items: center; justify-content: center; gap: clamp(16px, 4.5vw, 26px); }
+    .social-square {
+      width: clamp(60px, 15vw, 78px); height: clamp(60px, 15vw, 78px);
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.03);
+      backdrop-filter: blur(1.5px) saturate(1.03);
+      -webkit-backdrop-filter: blur(1.5px) saturate(1.03);
+      box-shadow: 0 8px 40px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.08);
+      display: flex; align-items: center; justify-content: center;
+      text-decoration: none;
+      transition: transform 0.25s ease, border-color 0.25s ease;
+    }
+    .social-square:hover { transform: translateY(-4px) scale(1.04); border-color: rgba(255,255,255,0.35); }
+    .social-square:active { transform: translateY(0) scale(0.96); }
+    .social-square svg { width: clamp(30px, 8vw, 36px); height: clamp(30px, 8vw, 36px); }
+
+    
+    @keyframes logoPulse {
+      0%,100% { transform: scale(1); }
+      50% { transform: scale(1.06); }
+    }
+
+
+    /* ─── لوگو پایین ─── */
+    .footer-logo {
+      width: clamp(105px, 22vw, 145px);
+      height: auto;
+      opacity: 0.92;
+      border-radius: 50%;
+      animation: logoPulse 3s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body>
+
+<div class="bg-layer"></div>
+<div class="bg-overlay"></div>
+
+<main class="qr-page">
+
+  <div class="qr-hero">
+    <h1 class="hero-title-en">BROADCASTIC <span class="team">TEAM</span></h1>
+    <div class="hero-divider"></div>
+    <p class="hero-title-fa"><span class="hero-title-main">تولید و پخش زنده</span><span class="hero-title-sub">از استودیو تا رویدادهای میدانی و تلویزیونی</span></p>
+    <p class="hero-subtitle">پوشش تخصصی برنامه‌ها و رویدادهای تصویری</p>
+  </div>
+
+  <div class="glass-box">
+    <a href="https://broadcasticteam.ir" class="website-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      <span>broadcasticteam.ir</span>
+    </a>
+  </div>
+
+  <div style="margin-top:-6px" class="glass-box contact-box">
+    <a href="tel:09364904538" class="contact-row">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      <span>0936 490 4538</span>
+    </a>
+
+  </div>
+
+  <a href="#" id="vcardBtn" class="vcard-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+      <span>افزودن مخاطب</span>
+  </a>
+
+  <div class="social-row">
+    <a href="tg://resolve?domain=broadcasticteam" onclick="window.location.href='tg://resolve?domain=broadcasticteam'; setTimeout(()=>{ window.location.href='https://t.me/broadcasticteam'; }, 500); return false;" class="social-square" aria-label="تلگرام">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#a9181c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 5L2 12.5l7 1M21 5l-2.5 15L9 13.5M21 5L9 13.5m0 0v5l3.5-3"/></svg>
+    </a>
+    <a href="instagram://user?username=broadcastic_team" onclick="window.location.href='instagram://user?username=broadcastic_team'; setTimeout(()=>{ window.location.href='https://instagram.com/broadcastic_team'; }, 500); return false;" class="social-square" aria-label="اینستاگرام">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#a9181c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+    </a>
+  </div>
+
+  <img src="../favicon.png" alt="Broadcastic Team" class="footer-logo" />
+
+</main>
+
+<script>
+  if (window.lucide) { lucide.createIcons(); }
+
+  document.getElementById('vcardBtn').addEventListener('click', function (e) {
+    e.preventDefault();
+    var vcard = [
+      'BEGIN:VCARD',
+      'VERSION:3.0',
+      'FN:Mohammad Abbasi',
+      'ORG:BROADCASTIC TEAM',
+      'TEL;TYPE=CELL:+989364904538',
+      'URL:https://broadcasticteam.ir',
+      'END:VCARD'
+    ].join('\r\n');
+
+    var blob = new Blob([vcard], { type: 'text/vcard;charset=utf-8' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'Broadcastic-Team.vcf';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+  });
+</script>
+
+</body>
+</html>
