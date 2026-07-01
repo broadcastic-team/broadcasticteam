@@ -133,8 +133,6 @@
       font-size: clamp(1.02rem, 4vw, 1.18rem); font-weight: 600; letter-spacing: 0.01em;
       transition: color 0.25s ease;
     }
-    .website-link:hover { color: var(--red); }
-    .website-link:active { color: var(--red); }
     .website-link svg { width: 24px; height: 24px; stroke: var(--red); flex-shrink: 0; }
 
     .contact-box { display: flex; flex-direction: column; align-items: center; gap: clamp(10px, 2vh, 14px); }
@@ -144,8 +142,6 @@
       font-size: clamp(1.02rem, 4vw, 1.18rem); font-weight: 600; letter-spacing: 0.01em;
       transition: color 0.25s ease;
     }
-    .contact-row:hover { color: var(--red); }
-    .contact-row:active { color: var(--red); }
     .contact-row svg { width: 24px; height: 24px; stroke: var(--red); flex-shrink: 0; }
 
     .vcard-btn {
@@ -179,7 +175,6 @@
       text-decoration: none;
       transition: transform 0.25s ease, border-color 0.25s ease;
     }
-    .social-square:hover { transform: translateY(-4px) scale(1.04); border-color: rgba(255,255,255,0.35); }
     .social-square:active { transform: translateY(0) scale(0.96); }
     .social-square svg { width: clamp(30px, 8vw, 36px); height: clamp(30px, 8vw, 36px); }
 
@@ -197,6 +192,19 @@
       opacity: 0.92;
       border-radius: 50%;
       animation: logoPulse 3s ease-in-out infinite;
+    }
+
+    /* ─── فقط دستگاه‌های دارای ماوس (دسکتاپ) ─── */
+    @media (hover: hover) {
+      .website-link:hover { color: var(--red); }
+      .contact-row:hover { color: var(--red); }
+      .social-square:hover { transform: translateY(-4px) scale(1.04); border-color: rgba(255,255,255,0.35); }
+    }
+
+    /* ─── دستگاه‌های لمسی (موبایل) ─── */
+    @media (hover: none) {
+      .website-link:active { color: var(--red); }
+      .contact-row:active { color: var(--red); }
     }
 
     /* ─── رفع هایلایت آبی موبایل ─── */
