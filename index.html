@@ -3,17 +3,59 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
-  <title>Broadcastic Team</title>
-  <meta name="description" content="تولید و پخش زنده حرفه‌ای، از استودیو تا رویدادهای میدانی و تلویزیونی" />
+  <title>Broadcastic Team | تولید و پخش زنده، کارگردانی و پوشش تصویری</title>
+  <meta name="description" content="تولید و پخش زنده، کارگردانی تلویزیونی و پوشش تصویری برنامه‌ها و رویدادها؛ از استودیو تا رویدادهای میدانی و تلویزیونی." />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <link rel="canonical" href="https://broadcasticteam.ir/" />
+  <meta property="og:locale" content="fa_IR" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Broadcastic Team" />
+  <meta property="og:title" content="Broadcastic Team | تولید و پخش زنده، کارگردانی و پوشش تصویری" />
+  <meta property="og:description" content="تولید و پخش زنده، کارگردانی تلویزیونی و پوشش تصویری برنامه‌ها و رویدادها؛ از استودیو تا رویدادهای میدانی و تلویزیونی." />
+  <meta property="og:url" content="https://broadcasticteam.ir/" />
+  <meta property="og:image" content="https://broadcasticteam.ir/header.webp" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Broadcastic Team | تولید و پخش زنده، کارگردانی و پوشش تصویری" />
+  <meta name="twitter:description" content="تولید و پخش زنده، کارگردانی تلویزیونی و پوشش تصویری برنامه‌ها و رویدادها؛ از استودیو تا رویدادهای میدانی و تلویزیونی." />
+  <meta name="twitter:image" content="https://broadcasticteam.ir/header.webp" />
   <meta name="theme-color" content="#0a0a0a" />
   <link rel="manifest" href="manifest.json" />
   <link rel="apple-touch-icon" href="favicon.png" />
-  <link rel="icon" type="image/png" href="favicon.png" />
-  <link rel="preload" href="header.jpg" as="image" fetchpriority="high" />
+  <link rel="icon" type="image/png" sizes="512x512" href="icon.png" />
+  <link rel="preload" href="header.webp" as="image" type="image/webp" fetchpriority="high" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@200;300;400;500;700;800;900&display=swap" rel="stylesheet" />
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://broadcasticteam.ir/#website",
+        "url": "https://broadcasticteam.ir/",
+        "name": "Broadcastic Team",
+        "alternateName": "برادکستیک تیم",
+        "inLanguage": "fa-IR"
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://broadcasticteam.ir/#organization",
+        "name": "Broadcastic Team",
+        "alternateName": "برادکستیک تیم",
+        "url": "https://broadcasticteam.ir/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://broadcasticteam.ir/icon.png",
+          "width": 512,
+          "height": 512
+        },
+        "description": "تولید و پخش زنده، کارگردانی تلویزیونی و پوشش تصویری برنامه‌ها و رویدادها."
+      }
+    ]
+  }
+  </script>
   <style>
     :root {
       --red: #a9181c;
@@ -69,6 +111,7 @@
       align-items: center;
       justify-content: center;
       height: 100%; padding: 0 8%; gap: 16px;
+      transform: translateY(-3.5vh);
       text-align: center;
     }
     @keyframes expandLine { from { transform:scaleX(0); opacity:0; } to { transform:scaleX(1); opacity:1; } }
@@ -77,7 +120,7 @@
       -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%);
     }
     .hero-title-en {
-      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-size: clamp(1.85rem, 3.6vw, 2.9rem);
       font-weight: 900; letter-spacing: var(--ls); line-height: 1;
       background: linear-gradient(135deg, #b0b0b0 0%, #ffffff 35%, #c8c8c8 60%, #909090 100%);
       -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
@@ -87,7 +130,7 @@
     }
     .hero-title-en .team { font-weight: 300; white-space: nowrap; }
     .hero-divider {
-      width: 300px; max-width: 60%; height: 2px;
+      width: 260px; max-width: 60%; height: 2px;
       margin: 0 auto clamp(12px, 2vw, 16px);
       border-radius: 2px;
       background: linear-gradient(to left, transparent, #a9181c, transparent);
@@ -95,7 +138,7 @@
       animation: expandLine 0.8s ease forwards 1.7s;
     }
     .hero-title-fa {
-      font-size: clamp(1.4rem, 2.5vw, 3rem);
+      font-size: clamp(1.5rem, 2.7vw, 3rem);
       font-weight: 800; letter-spacing: var(--ls); line-height: 1;
       opacity: 0; transform: translateY(30px);
       animation: fadeUp 0.9s ease forwards 0.55s;
@@ -522,17 +565,16 @@
 <body>
 
 <section class="hero">
-  <img src="header.jpg" alt="Broadcastic Team Studio" class="hero-bg" />
+  <img src="header.webp" alt="اتاق فرمان و تجهیزات تولید و پخش زنده" class="hero-bg" />
   <div class="hero-overlay"></div>
-  <img src="favicon.png" alt="Broadcastic Team Logo" class="hero-logo" />
+  <img src="icon.png" alt="Broadcastic Team Logo" class="hero-logo" />
   <div class="hero-content">
     <h1 class="hero-title-en">BROADCASTIC <span class="team">TEAM</span></h1>
     <div class="hero-divider"></div>
-    <p class="hero-title-fa"><span class="hero-title-main">تولید و پخش زنده</span><span class="hero-title-sub">از استودیو تا رویدادهای میدانی و تلویزیونی</span></p>
-    <p class="hero-subtitle">پوشش تخصصی برنامه‌ها و رویدادهای تصویری</p>
+    <p class="hero-title-fa"><span class="hero-title-main">تولید و پخش زنده </span><span class="hero-title-sub">از استودیو تا رویدادهای میدانی و تلویزیونی</span></p>
     <a href="#contact" class="hero-btn" id="contactBtn">
-      <i data-lucide="user-round" style="width:20px;height:20px;stroke:#fff;flex-shrink:0;"></i>
-      تماس با ما
+      <i data-lucide="users" style="width:20px;height:20px;stroke:#fff;flex-shrink:0;"></i>
+      مشاوره با ما
     </a>
   </div>
 </section>
@@ -546,44 +588,44 @@
   <div class="cards-grid">
     <div class="card">
       <div class="card-img-wrap">
-        <img src="card1.png" alt="کارگردانی تلویزیونی" class="card-img" loading="lazy" decoding="async" />
-        <div class="card-icon-wrap"><i data-lucide="clapperboard"></i></div>
-      </div>
-      <div class="card-body">
-        <h3 class="card-title">کارگردانی تلویزیونی</h3>
-        <p class="card-desc">طراحی، چیدمان دوربین‌ها و کارگردانی تلویزیونی برای اجرای دقیق و حرفه‌ای برنامه‌های تولیدی و زنده</p>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-img-wrap">
-        <img src="card2.png" alt="تولید و پخش زنده" class="card-img" loading="lazy" decoding="async" />
+        <img src="card1.webp" alt="تولید و پخش زنده" class="card-img" loading="lazy" decoding="async" />
         <div class="card-icon-wrap">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18.364 19.364a9 9 0 1 0-12.728 0"/><path d="M15.536 16.536a5 5 0 1 0-7.072 0"/><path d="M12 13m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"/></svg>
         </div>
       </div>
       <div class="card-body">
         <h3 class="card-title">تولید و پخش زنده</h3>
-        <p class="card-desc">تولید و پخش زنده با استفاده از تجهیزات حرفه‌ای و نرم‌افزارهای قدرتمند، با بهترین کیفیت</p>
+        <p class="card-desc">ضبط و پخش زنده چند دوربینه برنامه‌ها و رویدادها</p>
       </div>
     </div>
     <div class="card">
       <div class="card-img-wrap">
-        <img src="card4.png" alt="مهندسی فنی و انتقال سیگنال" class="card-img" loading="lazy" decoding="async" />
+        <img src="card2.webp" alt="کارگردانی تلویزیونی" class="card-img" loading="lazy" decoding="async" />
+        <div class="card-icon-wrap"><i data-lucide="clapperboard"></i></div>
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">کارگردانی تلویزیونی</h3>
+        <p class="card-desc">طراحی چیدمان دوربین‌ها و هدایت تصویری برنامه‌های زنده و تولیدی</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-img-wrap">
+        <img src="card3.webp" alt="مهندسی فنی و انتقال سیگنال" class="card-img" loading="lazy" decoding="async" />
         <div class="card-icon-wrap"><i data-lucide="workflow"></i></div>
       </div>
       <div class="card-body">
         <h3 class="card-title">مهندسی فنی و انتقال سیگنال</h3>
-        <p class="card-desc">طراحی و مدیریت مسیرهای انتقال تصویر، صدا و زیرساخت فنی بر اساس نیاز پروژه</p>
+        <p class="card-desc">طراحی و مدیریت مسیر انتقال تصویر، صدا و زیرساخت فنی پروژه</p>
       </div>
     </div>
     <div class="card">
       <div class="card-img-wrap">
-        <img src="card3.png" alt="مشاوره و طراحی" class="card-img" loading="lazy" decoding="async" />
+        <img src="card4.webp" alt="مشاوره و طراحی" class="card-img" loading="lazy" decoding="async" />
         <div class="card-icon-wrap"><i data-lucide="drafting-compass"></i></div>
       </div>
       <div class="card-body">
         <h3 class="card-title">مشاوره و طراحی</h3>
-        <p class="card-desc">مشاوره تخصصی و طراحی استودیو و اتاق فرمان متناسب با نیازهای پروژه شما</p>
+        <p class="card-desc">طراحی استودیو و اتاق فرمان متناسب با نیاز هر پروژه</p>
       </div>
     </div>
   </div>
@@ -600,49 +642,49 @@
       <div class="midder-card-icon"><i data-lucide="video"></i></div>
       <div class="midder-card-content">
         <div class="midder-card-title">برنامه‌های تلویزیونی و مصاحبه</div>
-        <div class="midder-card-desc">تولید و پخش برنامه‌های تلویزیونی و مصاحبه‌های حرفه‌ای با ساختار چند دوربینه</div>
+        <div class="midder-card-desc">پوشش چند دوربینه برنامه‌های تلویزیونی و مصاحبه‌ها</div>
       </div>
     </div>
     <div class="midder-card">
       <div class="midder-card-icon"><i data-lucide="trophy"></i></div>
       <div class="midder-card-content">
         <div class="midder-card-title">پخش زنده ورزشی</div>
-        <div class="midder-card-desc">پخش زنده مسابقات ورزشی به صورت استریم یا پوشش میدانی، گزارشگر و چند دوربین در ورزشگاه</div>
+        <div class="midder-card-desc">پوشش تصویری و پخش زنده مسابقات ورزشی آنلاین و میدانی</div>
       </div>
     </div>
     <div class="midder-card">
       <div class="midder-card-icon"><i data-lucide="podcast"></i></div>
       <div class="midder-card-content">
         <div class="midder-card-title">ویدیوپادکست و برنامه‌های استودیویی</div>
-        <div class="midder-card-desc">ضبط و پخش زنده ویدیوپادکست‌ها، برنامه‌های تولیدی و محتوای استودیویی چند دوربینه</div>
+        <div class="midder-card-desc">ضبط و پخش ویدیوپادکست و برنامه‌های استودیویی چند دوربینه</div>
       </div>
     </div>
     <div class="midder-card">
       <div class="midder-card-icon"><i data-lucide="cast"></i></div>
       <div class="midder-card-content">
         <div class="midder-card-title">رویدادها و ارتباطات آنلاین</div>
-        <div class="midder-card-desc">برگزاری جلسات، ویدیو کنفرانس، کلاس‌های آموزشی، رویدادها و ارتباطات تصویری آنلاین</div>
+        <div class="midder-card-desc">برگزاری جلسات، ویدئوکنفرانس‌ها، کلاس‌های آموزشی و ارتباطات تصویری آنلاین</div>
       </div>
     </div>
     <div class="midder-card">
       <div class="midder-card-icon"><i data-lucide="mic-vocal"></i></div>
       <div class="midder-card-content">
         <div class="midder-card-title">اجراها و رویدادهای صحنه‌ای</div>
-        <div class="midder-card-desc">پوشش تصویری و پخش زنده اجراهای صحنه‌ای و رویدادهای حضوری با ساختار چند دوربینه</div>
+        <div class="midder-card-desc">پوشش تصویری و پخش زنده اجراهای صحنه‌ای و رویدادهای میدانی</div>
       </div>
     </div>
     <div class="midder-card">
       <div class="midder-card-icon"><i data-lucide="tv-minimal-play"></i></div>
       <div class="midder-card-content">
         <div class="midder-card-title">راه‌اندازی تلویزیون اینترنتی</div>
-        <div class="midder-card-desc">طراحی و راه‌اندازی شبکه‌های تلویزیون اینترنتی و پخش ۲۴ ساعته</div>
+        <div class="midder-card-desc">طراحی و راه‌اندازی تلویزیون اینترنتی و پخش ۲۴ ساعته</div>
       </div>
     </div>
   </div>
 </section>
 
 <div class="midder-bottom-img">
-  <img src="midder.jpg" alt="تجهیزات حرفه‌ای" loading="lazy" decoding="async" />
+  <img src="midder.webp" alt="تجهیزات حرفه‌ای" loading="lazy" decoding="async" />
   <div class="colorbar">
     <div style="background:#ffffff"></div>
     <div style="background:#f5dc05"></div>
@@ -708,7 +750,7 @@
   </div>
 
   <div class="footer-bottom">
-    <img src="footer.jpg" alt="Broadcastic Team" class="footer-logo-img" loading="lazy" decoding="async" />
+    <img src="footer.webp" alt="Broadcastic Team" class="footer-logo-img" loading="lazy" decoding="async" />
     <div class="footer-bar">
       <div class="footer-bar-left"><span>تمام حقوق محفوظ است.</span></div>
       <div class="footer-bar-right"><span>© 2026 broadcastic team.</span></div>
@@ -723,7 +765,6 @@
   // ─── drop shadow نوشته‌های فارسی هیرو ───
   var heroShadow = '0 2px 12px rgba(0,0,0,0.6)';
   document.querySelector('.hero-title-fa').style.textShadow = heroShadow;
-  document.querySelector('.hero-subtitle').style.textShadow = heroShadow;
   document.querySelector('.hero-btn').style.textShadow = heroShadow;
 
   // ─── parallax هیرو ───
@@ -810,7 +851,7 @@
 
   // ─── تکستچر فوتر با opacity تدریجی هنگام اسکرول ───
   function getBgImage() {
-    return window.innerWidth <= 768 ? 'footer-bg-mobile.jpg' : 'footer-bg.jpg';
+    return window.innerWidth <= 768 ? 'footer-bg-mobile.webp' : 'footer-bg.webp';
   }
 
   function calculateStart() {

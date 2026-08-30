@@ -1,75 +1,65 @@
-const CACHE_NAME = 'broadcastic-v7';
+const CACHE_NAME = 'broadcastic-v8';
 
 const STATIC_ASSETS = [
   '/',
   '/index.html',
   '/favicon.png',
+  '/icon.png',
   '/manifest.json',
-  '/header.jpg',
-  '/card1.png',
-  '/card2.png',
-  '/card3.png',
-  '/card4.png',
-  '/midder.jpg',
-  '/footer-bg.jpg',
-  '/footer-bg-mobile.jpg',
-  '/footer.jpg',
+  '/header.webp',
+  '/card1.webp',
+  '/card2.webp',
+  '/card3.webp',
+  '/card4.webp',
+  '/midder.webp',
+  '/footer-bg.webp',
+  '/footer-bg-mobile.webp',
+  '/footer.webp',
 ];
 
-// ─── نصب: کش کردن فایل‌های اصلی ───
-self.addEventListener('install', (e) => {
-  e.waitUntil(
-    caches.open(CACHE_NAME).then(cache => cache.addAll(STATIC_ASSETS))
+self.addEventListener('install', (event) => {
+  event.waitUntil(
+    caches.open(CACHE_NAME).then((cache) => cache.addAll(STATIC_ASSETS))
   );
   self.skipWaiting();
 });
 
-// ─── فعال‌سازی: حذف کش‌های قدیمی ───
-self.addEventListener('activate', (e) => {
-  e.waitUntil(
-    caches.keys().then(keys =>
-      Promise.all(
-        keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k))
-      )
+self.addEventListener('activate', (event) => {
+  event.waitUntil(
+    caches.keys().then((keys) =>
+      Promise.all(keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key)))
     )
   );
   self.clients.claim();
 });
 
-// ─── استراتژی مشترک: cache-first با fallback به network ───
 function cacheFirst(request, { fallbackToIndex = false } = {}) {
-  return caches.match(request).then(cached => {
+  return caches.match(request).then((cached) => {
     if (cached) return cached;
-    return fetch(request).then(res => {
-      if (res.ok) {
-        const clone = res.clone();
-        caches.open(CACHE_NAME).then(c => c.put(request, clone));
+
+    return fetch(request).then((response) => {
+      if (response.ok) {
+        caches.open(CACHE_NAME).then((cache) => cache.put(request, response.clone()));
       }
-      return res;
-    }).catch(() => {
-      if (fallbackToIndex) return caches.match('/index.html');
-    });
+      return response;
+    }).catch(() => (fallbackToIndex ? caches.match('/index.html') : undefined));
   });
 }
 
-// ─── fetch ───
-self.addEventListener('fetch', (e) => {
-  if (e.request.method !== 'GET') return;
+self.addEventListener('fetch', (event) => {
+  if (event.request.method !== 'GET') return;
 
-  const url = new URL(e.request.url);
-
-  // فونت‌ها و CDN: cache-first
+  const url = new URL(event.request.url);
   if (
     url.hostname.includes('fonts.googleapis.com') ||
     url.hostname.includes('fonts.gstatic.com') ||
     url.hostname.includes('unpkg.com')
   ) {
-    e.respondWith(cacheFirst(e.request));
+    event.respondWith(cacheFirst(event.request));
     return;
   }
 
-  // فایل‌های همین دامنه: cache-first با fallback به network
   if (url.origin === self.location.origin) {
-    e.respondWith(cacheFirst(e.request, { fallbackToIndex: true }));
+    event.respondWith(cacheFirst(event.request, { fallbackToIndex: true }));
   }
 });

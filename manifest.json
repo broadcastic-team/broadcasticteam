@@ -1,7 +1,7 @@
 {
   "name": "Broadcastic Team",
   "short_name": "Broadcastic",
-  "description": "تولید و پخش زنده حرفه‌ای",
+  "description": "تولید و پخش زنده",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#0a0a0a",
